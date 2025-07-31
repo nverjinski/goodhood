@@ -8,8 +8,8 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
 
 const GoogleMap = () => {
-  const defaultMapCenter = { lat: 39.8283, lng: -98.5795 }; // US center
-  const defaultMapZoom = 5;
+  const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
+  const defaultMapZoom = 12;
 
   const [hoverInfo, setHoverInfo] = useState(null);
 
