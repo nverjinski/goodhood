@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
 
-const DeckGLOverlayComponent = ({ layers }) => {
+const DeckOverlay = ({ layers }) => {
   const map = useMap();
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const DeckGLOverlayComponent = ({ layers }) => {
   return null;
 };
 
-export default DeckGLOverlayComponent;
+export default DeckOverlay;

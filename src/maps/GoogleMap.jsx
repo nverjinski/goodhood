@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
-import DeckGLOverlayComponent from "./deckgl-overlay";
+import DeckGLOverlayComponent from "./DeckOverlay";
 import { useTheme } from "@contexts/ThemeContext";
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -55,8 +55,8 @@ const GoogleMap = () => {
           defaultZoom={defaultMapZoom}
           gestureHandling={"greedy"}
           disableDefaultUI={true}
-          //styles={GoogleMapStyles} this style is not applied on vectorized maps
           mapId={mapId}
+          // Setting this to false fixes the bug of changing theme multiple times causing layers not to render
           reuseMaps={true}
           colorScheme={theme.toUpperCase()}
         >
