@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
-import sourceData from "../datasets/gun_violence_2024.json";
+import sourceData from "@datasets/gun_violence_2024.json";
 import DeckGLOverlayComponent from "./deckgl-overlay";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "@contexts/ThemeContext";
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;

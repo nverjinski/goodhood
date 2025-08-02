@@ -1,9 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
-import { useTheme } from "../contexts/ThemeContext"; // Import the custom hook from the context file
+import { useTheme } from "@contexts/ThemeContext";
 
-// Define a styled button component with a focus on accessibility and theming
 const StyledButton = styled.button`
   padding: 0.5rem;
   border-radius: 9999px; /* This is equivalent to 'rounded-full' in Tailwind */
@@ -38,18 +36,12 @@ const StyledButton = styled.button`
   }
 `;
 
-// A wrapper for the icons to ensure consistent sizing and appearance
 const IconWrapper = styled.div`
   width: 1.5rem;
   height: 1.5rem;
 `;
 
-/**
- * A reusable button component to toggle the application's theme.
- * It uses the `useTheme` custom hook to access the theme state and the toggle function.
- */
 const ThemeToggle = () => {
-  // Use the custom hook to get the current theme and the function to toggle it.
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -58,7 +50,6 @@ const ThemeToggle = () => {
       className={theme} // Apply the current theme as a class
       aria-label="Toggle theme"
     >
-      {/* Conditionally render the appropriate icon based on the current theme */}
       <IconWrapper>{theme === "dark" ? <SunIcon /> : <MoonIcon />}</IconWrapper>
     </StyledButton>
   );
