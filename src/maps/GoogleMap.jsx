@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
@@ -15,6 +15,18 @@ const GoogleMap = () => {
 
   const [hoverInfo, setHoverInfo] = useState(null);
 
+  const handleHover = useCallback((info) => {
+    setHoverInfo((prevInfo) => {
+      if (info?.index === -1) {
+        return null;
+      }
+      if (prevInfo?.index === info.index) {
+        return prevInfo;
+      }
+      return info;
+    });
+  }, []);
+
   const layers = useMemo(() => {
     if (!Array.isArray(sourceData)) {
       return [];
@@ -23,7 +35,7 @@ const GoogleMap = () => {
       new ScatterplotLayer({
         id: "scatterplot-layer",
         data: sourceData,
-        opacity: 0.75, // between 0 and 1
+        opacity: 1, // between 0 and 1
         stroked: true,
         getLineWidth: 1,
         filled: true,
@@ -31,16 +43,16 @@ const GoogleMap = () => {
         radiusMinPixels: 7,
         radiusMaxPixels: 20,
         pickable: true,
-        onHover: (info) => setHoverInfo(info),
+        onHover: handleHover,
         getPosition: (d) => [d.longitude, d.latitude],
         getFillColor: (d) =>
-          d.n_killed > 0 ? [255, 0, 0, 75] : [255, 197, 0, 100],
+          d.n_killed > 0 ? [255, 0, 0, 100] : [255, 197, 0, 100],
         parameters: {
           depthTest: false,
         },
       }),
     ];
-  }, [sourceData, theme]);
+  }, [sourceData, handleHover, theme]);
 
   if (!apiKey) {
     console.error("Error: Missing Google Maps API Key");
