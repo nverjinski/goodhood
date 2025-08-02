@@ -21,17 +21,21 @@ const GoogleMap = () => {
       new ScatterplotLayer({
         id: "scatterplot-layer",
         data: sourceData,
-        opacity: 3,
+        opacity: 0.75, // between 0 and 1
         stroked: true,
-        illed: true,
-        radiusMinPixels: 6,
-        radiusMaxPixels: 10,
-        radiusScale: 6,
+        getLineWidth: 1,
+        filled: true,
+        lineWidthMaxPixels: 1,
+        radiusMinPixels: 7,
+        radiusMaxPixels: 20,
         pickable: true,
         onHover: (info) => setHoverInfo(info),
         getPosition: (d) => [d.longitude, d.latitude],
         getFillColor: (d) =>
-          d.n_killed > 0 ? [255, 0, 0, 100] : [255, 197, 0, 100],
+          d.n_killed > 0 ? [255, 0, 0, 75] : [255, 197, 0, 100],
+        parameters: {
+          depthTest: false,
+        },
       }),
     ];
   }, [sourceData]);
