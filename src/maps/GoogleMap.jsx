@@ -7,6 +7,8 @@ import { useTheme } from "@contexts/ThemeContext";
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
+const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
+const defaultMapZoom = 12;
 
 const scatterplotColors = {
   LIGHT: {
@@ -21,10 +23,20 @@ const scatterplotColors = {
 
 const GoogleMap = () => {
   const { theme } = useTheme();
-  const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
-  const defaultMapZoom = 12;
 
+  const [mapCenter, setMapCenter] = useState(defaultMapCenter);
+  const [mapZoom, setMapZoom] = useState(defaultMapZoom);
   const [hoverInfo, setHoverInfo] = useState(null);
+
+  const handleCameraChange = useCallback((e) => {
+    if (!e.detail.center) return;
+    setMapCenter(e.detail.center);
+  }, []);
+
+  const handleZoomChange = useCallback((e) => {
+    if (!e.detail.zoom) return;
+    setMapZoom(e.detail.zoom);
+  }, []);
 
   const handleHover = useCallback((info) => {
     setHoverInfo((prevInfo) => {
@@ -82,8 +94,10 @@ const GoogleMap = () => {
           and google will charge for the map load. TODO: find another solution to the layer rendering issue
           */
           key={theme}
-          defaultCenter={defaultMapCenter}
-          defaultZoom={defaultMapZoom}
+          defaultCenter={mapCenter}
+          defaultZoom={mapZoom}
+          onCameraChanged={handleCameraChange}
+          onZoomChanged={handleZoomChange}
           gestureHandling={"greedy"}
           disableDefaultUI={true}
           mapId={mapId}
