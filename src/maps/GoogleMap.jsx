@@ -29,12 +29,8 @@ const GoogleMap = () => {
   const [hoverInfo, setHoverInfo] = useState(null);
 
   const handleCameraChange = useCallback((e) => {
-    if (!e.detail.center) return;
+    if (!e.detail.center || !e.detail.zoom) return;
     setMapCenter(e.detail.center);
-  }, []);
-
-  const handleZoomChange = useCallback((e) => {
-    if (!e.detail.zoom) return;
     setMapZoom(e.detail.zoom);
   }, []);
 
@@ -94,10 +90,9 @@ const GoogleMap = () => {
           and google will charge for the map load. TODO: find another solution to the layer rendering issue
           */
           key={theme}
-          defaultCenter={mapCenter}
-          defaultZoom={mapZoom}
+          center={mapCenter}
+          zoom={mapZoom}
           onCameraChanged={handleCameraChange}
-          onZoomChanged={handleZoomChange}
           gestureHandling={"greedy"}
           disableDefaultUI={true}
           mapId={mapId}
