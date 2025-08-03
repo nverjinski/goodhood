@@ -14,8 +14,8 @@ const scatterplotColors = {
     injured: [255, 197, 0, 100],
   },
   DARK: {
-    killed: [220, 38, 38, 128],
-    injured: [234, 179, 8, 128],
+    killed: [255, 20, 0, 140],
+    injured: [255, 220, 50, 140],
   },
 };
 
@@ -54,7 +54,7 @@ const GoogleMap = () => {
         getLineWidth: 1,
         filled: true,
         lineWidthMaxPixels: 1,
-        radiusMinPixels: 7,
+        radiusMinPixels: 6,
         radiusMaxPixels: 20,
         pickable: true,
         onHover: handleHover,
@@ -76,6 +76,11 @@ const GoogleMap = () => {
     <div style={{ height: "100vh", width: "100%", position: "relative" }}>
       <APIProvider apiKey={apiKey}>
         <Map
+          /*
+          Setting the key={theme} ensures that the map updates when the theme changes. This was necessary
+          because the layers were not rendering correctly when the theme was toggled 4x. This solution reloads the map
+          and google will charge for the map load. TODO: find another solution to the layer rendering issue
+          */
           key={theme}
           defaultCenter={defaultMapCenter}
           defaultZoom={defaultMapZoom}
