@@ -1,26 +1,36 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
 
 const DeckOverlay = ({ layers }) => {
   const map = useMap();
 
+  const [overlay, setOverlay] = useState(null);
+
+  // Create the overlay when the map is ready
   useEffect(() => {
     if (!map) {
-      return undefined;
+      return;
     }
 
-    // Create a new overlay instance every time the map or layers change.
-    const overlay = new GoogleMapsOverlay({
-      layers,
-    });
-
-    overlay.setMap(map);
+    const newOverlay = new GoogleMapsOverlay({});
+    newOverlay.setMap(map);
+    setOverlay(newOverlay);
 
     return () => {
-      overlay.finalize();
+      newOverlay.finalize();
+      newOverlay.setMap(null);
     };
-  }, [map, layers]);
+  }, [map]);
+
+  // Update the overlay with new layers
+  useEffect(() => {
+    if (!overlay) {
+      return;
+    }
+
+    overlay.setProps({ layers });
+  }, [overlay, layers]);
 
   return null;
 };

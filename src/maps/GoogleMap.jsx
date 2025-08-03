@@ -2,11 +2,22 @@ import { useMemo, useState, useCallback } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
-import DeckGLOverlayComponent from "./DeckOverlay";
+import DeckOverlay from "./DeckOverlay";
 import { useTheme } from "@contexts/ThemeContext";
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
+
+const scatterplotColors = {
+  LIGHT: {
+    killed: [255, 0, 0, 100],
+    injured: [255, 197, 0, 100],
+  },
+  DARK: {
+    killed: [220, 38, 38, 128],
+    injured: [234, 179, 8, 128],
+  },
+};
 
 const GoogleMap = () => {
   const { theme } = useTheme();
@@ -31,6 +42,9 @@ const GoogleMap = () => {
     if (!Array.isArray(sourceData)) {
       return [];
     }
+    const colors =
+      scatterplotColors[theme.toUpperCase()] || scatterplotColors.DARK;
+
     return [
       new ScatterplotLayer({
         id: "scatterplot-layer",
@@ -45,8 +59,7 @@ const GoogleMap = () => {
         pickable: true,
         onHover: handleHover,
         getPosition: (d) => [d.longitude, d.latitude],
-        getFillColor: (d) =>
-          d.n_killed > 0 ? [255, 0, 0, 100] : [255, 197, 0, 100],
+        getFillColor: (d) => (d.n_killed > 0 ? colors.killed : colors.injured),
         parameters: {
           depthTest: false,
         },
@@ -63,6 +76,7 @@ const GoogleMap = () => {
     <div style={{ height: "100vh", width: "100%", position: "relative" }}>
       <APIProvider apiKey={apiKey}>
         <Map
+          key={theme}
           defaultCenter={defaultMapCenter}
           defaultZoom={defaultMapZoom}
           gestureHandling={"greedy"}
@@ -72,7 +86,7 @@ const GoogleMap = () => {
           reuseMaps={true}
           colorScheme={theme.toUpperCase()}
         >
-          <DeckGLOverlayComponent key={theme} layers={layers} />
+          <DeckOverlay layers={layers} />
         </Map>
       </APIProvider>
 
