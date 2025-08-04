@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "@styles/theme";
 
 const ThemeContext = createContext({
   theme: "light",
   toggleTheme: () => {},
 });
 
-// Custom hook to consume the context
-// This hook makes it easier for components to access the theme.
+// Custom hook to consume the context and allow components to access the theme
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
@@ -34,11 +35,14 @@ export const ThemeProvider = ({ children }) => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  const currentThemeObject = theme === "light" ? lightTheme : darkTheme;
   const contextValue = { theme, toggleTheme };
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      {children}
+      <StyledThemeProvider theme={currentThemeObject}>
+        {children}
+      </StyledThemeProvider>
     </ThemeContext.Provider>
   );
 };

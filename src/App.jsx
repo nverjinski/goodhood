@@ -8,6 +8,8 @@ function App() {
     <ThemeProvider>
       <Toolbar>
         <ThemeToggle />
+        <ThemeToggle />
+        <ThemeToggle />
       </Toolbar>
       <GoogleMap />
     </ThemeProvider>

@@ -13,6 +13,7 @@ export default defineConfig({
       "@datasets": path.resolve("./src/datasets"),
       "@utils": path.resolve("./src/utils"),
       "@maps": path.resolve("./src/maps"),
+      "@styles": path.resolve("./src/styles"),
     },
   },
 });
