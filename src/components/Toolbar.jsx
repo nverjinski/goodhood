@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useTheme } from "@contexts/ThemeContext";
 
 const StyledToolbar = styled.div`
   position: absolute;
@@ -12,15 +11,15 @@ const StyledToolbar = styled.div`
   gap: 1rem;
   padding: 0.5rem;
   border-radius: 9999px;
+  border: 1px solid ${({ theme }) => theme.text};
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease-in-out;
 
-  // Base colors for light theme
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: ${({ theme }) => `${theme.toolbar.background}C0`};
 
-  // Styling for dark theme using a class
-  &.dark {
-    //background-color: rgba(31, 41, 55, 0.5);
+  &:hover {
+    background-color: ${({ theme }) => theme.toolbar.background};
   }
 `;
 
@@ -28,11 +27,10 @@ const StyledToolbar = styled.div`
  * A flexible toolbar component for housing various action buttons.
  *
  * @param {object} props - Component props.
- * @param {React.ReactNode} props.children - The child elements to be rendered inside the toolbar.
+ * @param {React.ReactNode} props.children - The child elements.
  */
 const Toolbar = ({ children }) => {
-  const { theme } = useTheme();
-  return <StyledToolbar className={theme}>{children}</StyledToolbar>;
+  return <StyledToolbar>{children}</StyledToolbar>;
 };
 
 export default Toolbar;
