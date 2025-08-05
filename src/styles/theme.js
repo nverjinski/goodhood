@@ -1,25 +1,34 @@
 export const lightTheme = {
-  body: "#FFFFFF",
-  text: "#1F2937", // Dark Gray
-  button: {
-    background: "#F3F4F6", // Light Gray
-    text: "#1F2937", // Dark Gray icon
-  },
-  toolbar: {
-    background: "#FFFFFF",
-  },
-  accent: "#4F46E5", // Indigo for hover/focus
+  mode: "light",
+  primary_base: "#ffffff",
+  primary_text: "#000000",
+  secondary_base: "#e2e2e2",
+  secondary_text: "#5f5f5f",
+  heavy_line_outline: "#878787",
+  light_line_divider: "#d9d9d9",
+  light_warning: "#fdf9d2",
+  light_warning_text: "#636363",
+  heavy_warning: "#BB5206",
+  light_danger: "#E42629",
+  heavy_danger: "#900303",
+  success: "#00825D",
+  heavy_success: "#11B484",
+  caution: "#866B00",
 };
 
 export const darkTheme = {
-  body: "#111827", // Very Dark Gray
-  text: "#F3F4F6", // Light Gray
-  button: {
-    background: "#374151", // Medium-Dark Gray
-    text: "#F3F4F6", // Light Gray icon
-  },
-  toolbar: {
-    background: "#1F2937", // Opaque Dark Gray
-  },
-  accent: "#6366F1", // A slightly lighter Indigo for better visibility
+  mode: "dark",
+  primary_base: "#1d1d1d",
+  primary_text: "#ffffff",
+  secondary_base: "#2c2c2cff",
+  secondary_text: "#b0b0b0",
+  heavy_line_outline: "#696969",
+  light_line_divider: "#d9d9d9",
+  light_warning: "#fdf9d2",
+  light_warning_text: "#051e37",
+  heavy_warning: "#ffe8cb",
+  light_danger: "#ff6f6f",
+  heavy_danger: "#e46e6e",
+  success: "#30e0ac",
+  heavy_success: "#11b484",
 };

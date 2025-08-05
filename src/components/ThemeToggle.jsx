@@ -14,12 +14,12 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  background-color: ${({ theme }) => theme.button.background};
-  color: ${({ theme }) => theme.button.text};
+  background-color: ${({ theme }) => theme.secondary_base};
+  color: ${({ theme }) => theme.secondary_text};
 
   &:hover {
-    background-color: ${({ theme }) => theme.accent};
-    color: white;
+    background-color: ${({ theme }) => theme.secondary_text};
+    color: ${({ theme }) => theme.secondary_base};
   }
 
   &:focus {

@@ -3,7 +3,7 @@ import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "@styles/theme";
 
 const ThemeContext = createContext({
-  theme: "light",
+  theme: lightTheme,
   toggleTheme: () => {},
 });
 
@@ -36,7 +36,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const currentThemeObject = theme === "light" ? lightTheme : darkTheme;
-  const contextValue = { theme, toggleTheme };
+  const contextValue = { theme: currentThemeObject, toggleTheme };
 
   return (
     <ThemeContext.Provider value={contextValue}>

@@ -11,11 +11,11 @@ const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
 const defaultMapZoom = 12;
 
 const scatterplotColors = {
-  LIGHT: {
+  light: {
     killed: [255, 0, 0, 100],
     injured: [255, 197, 0, 100],
   },
-  DARK: {
+  dark: {
     killed: [255, 20, 0, 140],
     injured: [255, 220, 50, 140],
   },
@@ -50,8 +50,8 @@ const GoogleMap = () => {
     if (!Array.isArray(sourceData)) {
       return [];
     }
-    const colors =
-      scatterplotColors[theme.toUpperCase()] || scatterplotColors.DARK;
+    console.log(theme.mode);
+    const colors = scatterplotColors[theme.mode];
 
     return [
       new ScatterplotLayer({
@@ -89,7 +89,7 @@ const GoogleMap = () => {
           because the layers were not rendering correctly when the theme was toggled 4x. This solution reloads the map
           and google will charge for the map load. TODO: find another solution to the layer rendering issue
           */
-          key={theme}
+          key={theme.mode}
           center={mapCenter}
           zoom={mapZoom}
           onCameraChanged={handleCameraChange}
@@ -98,7 +98,7 @@ const GoogleMap = () => {
           mapId={mapId}
           // Setting this to false fixes the bug of changing theme multiple times causing layers not to render
           reuseMaps={true}
-          colorScheme={theme.toUpperCase()}
+          colorScheme={theme.mode.toUpperCase()}
         >
           <DeckOverlay layers={layers} />
         </Map>
