@@ -50,7 +50,6 @@ const GoogleMap = () => {
     if (!Array.isArray(sourceData)) {
       return [];
     }
-    console.log(theme.mode);
     const colors = scatterplotColors[theme.mode];
 
     return [
