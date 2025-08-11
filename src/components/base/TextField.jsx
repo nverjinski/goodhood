@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
-import InputBase from "./base/InputBase";
+import InputBase from "./InputBase";
 
 // Main container for the input and label
 const StyledInputWrapper = styled.div`
