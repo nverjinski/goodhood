@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const StyledToolbox = styled.div`
   position: absolute;
+  width: 400px;
   z-index: 1;
   top: 4rem;
   left: 2rem;
