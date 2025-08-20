@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import InputBase from "./InputBase";
 
@@ -17,7 +17,6 @@ const StyledFieldSet = styled.fieldset`
   right: 0;
   bottom: 0;
   margin: 0;
-  /* Adjusted padding to perfectly align the legend with the label */
   padding: 0 7px;
   border: 1px solid ${({ theme }) => theme.light_line_divider};
   border-radius: 4px;
@@ -112,6 +111,12 @@ const TextField = ({
   const hasFocus = isFocused;
   const hasHovered = isHovered;
   const hasValue = value !== "";
+
+  useEffect(() => {
+    if (propsValue !== value) {
+      setValue(propsValue);
+    }
+  }, [propsValue]);
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
