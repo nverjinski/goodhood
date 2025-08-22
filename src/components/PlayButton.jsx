@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useMap } from "@vis.gl/react-google-maps";
+import mapUtils from "@utils/mapUtils";
 import { PlayIcon } from "@heroicons/react/24/solid";
 
 const StyledButton = styled.button`
@@ -32,8 +34,18 @@ const IconWrapper = styled.div`
 `;
 
 const PlayButton = () => {
+  const map = useMap();
+
+  const handleClick = () => {
+    if (map) {
+      console.log({ map });
+      const newLocation = { lat: 40.7128, lng: -74.006 }; // Example: New York City
+      mapUtils.flyTo(map, { center: newLocation, zoom: 16 });
+    }
+  };
+
   return (
-    <StyledButton onClick={() => {}} aria-label="Play Button">
+    <StyledButton onClick={handleClick} aria-label="Play Button">
       <IconWrapper>
         <PlayIcon />
       </IconWrapper>

@@ -1,11 +1,10 @@
 import { useMemo, useState, useCallback } from "react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { Map } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
 import DeckOverlay from "./DeckOverlay";
 import { useTheme } from "@contexts/ThemeContext";
 
-const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
 const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
 const defaultMapZoom = 12;
@@ -74,34 +73,29 @@ const GoogleMap = () => {
     ];
   }, [sourceData, handleHover, theme]);
 
-  if (!apiKey) {
-    console.error("Error: Missing Google Maps API Key");
-    return <div>Error: Missing Google Maps API Key</div>;
-  }
-
   return (
     <div style={{ height: "100vh", width: "100%", position: "relative" }}>
-      <APIProvider apiKey={apiKey}>
-        <Map
-          /*
+      <Map
+        /*
           Setting the key={theme} ensures that the map updates when the theme changes. This was necessary
           because the layers were not rendering correctly when the theme was toggled 4x. This solution reloads the map
           and google will charge for the map load. TODO: find another solution to the layer rendering issue
           */
-          key={theme.mode}
-          center={mapCenter}
-          zoom={mapZoom}
-          onCameraChanged={handleCameraChange}
-          gestureHandling={"greedy"}
-          disableDefaultUI={true}
-          mapId={mapId}
-          // Setting this to false fixes the bug of changing theme multiple times causing layers not to render
-          reuseMaps={true}
-          colorScheme={theme.mode.toUpperCase()}
-        >
-          <DeckOverlay layers={layers} />
-        </Map>
-      </APIProvider>
+        key={theme.mode}
+        defaultCenter={mapCenter}
+        defaultZoom={mapZoom}
+        //center={mapCenter}
+        //zoom={mapZoom}
+        onCameraChanged={handleCameraChange}
+        gestureHandling={"greedy"}
+        disableDefaultUI={true}
+        mapId={mapId}
+        // Setting this to false fixes the bug of changing theme multiple times causing layers not to render
+        reuseMaps={true}
+        colorScheme={theme.mode.toUpperCase()}
+      >
+        <DeckOverlay layers={layers} />
+      </Map>
 
       {hoverInfo && hoverInfo.object && (
         <div
