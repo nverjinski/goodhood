@@ -17,13 +17,18 @@ const StyledList = styled.ul`
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #fff; /* Give it a solid background */
+  background-color: ${({ theme }) => theme.primary_base}C0;
   list-style: none;
   padding: 0;
   margin-top: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.heavy_line_outline};
   border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
   z-index: 10;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primary_base};
+  }
 `;
 
 const ListItemWrapper = styled.li`
@@ -34,17 +39,17 @@ const ListItemWrapper = styled.li`
   transition: background-color 150ms ease-in-out;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: ${({ theme }) => theme.secondary_base};
   }
 `;
 
-const IconContainer = styled.div`
+const MapPinIconContainer = styled.div`
   height: 24px;
   width: 24px;
   display: flex;
   flex-shrink: 0;
   margin-right: 16px;
-  color: #666; /* This color will be inherited by the SVG icon */
+  color: ${({ theme }) => theme.secondary_text};
 `;
 
 const StyledIconButton = styled.div`
@@ -58,10 +63,10 @@ const StyledIconButton = styled.div`
   border: none;
   cursor: pointer;
   padding: 0;
-  color: #666; /* Icon color */
+  color: ${({ theme }) => theme.secondary_text};
 
   &:hover {
-    color: #333; /* Darker color on hover */
+    color: ${({ theme }) => theme.primary_text};
   }
 `;
 
@@ -74,12 +79,12 @@ const TextContainer = styled.div`
 const MainText = styled.div`
   font-size: 0.9rem;
   font-weight: 500;
-  color: #212121;
+  color: ${({ theme }) => theme.primary_text};
 `;
 
 const SecondaryText = styled.div`
   font-size: 0.875rem;
-  color: #666;
+  color: ${({ theme }) => theme.secondary_text};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -149,9 +154,9 @@ const AddressInput = () => {
         data-id={option.place_id}
         onClick={handleOptionClick}
       >
-        <IconContainer>
+        <MapPinIconContainer>
           <MapPinIcon />
-        </IconContainer>
+        </MapPinIconContainer>
         <TextContainer>
           <MainText>{mainText}</MainText>
           <SecondaryText>{secondaryText}</SecondaryText>
