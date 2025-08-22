@@ -5,6 +5,7 @@ import PlayButton from "@components/PlayButton";
 import Toolbar from "@components/Toolbar";
 import Toolbox from "@components/Toolbox";
 import AddressInput from "@components/AddressInput";
+import SettingsButton from "@components/SettingsButton";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Toolbar>
         <ThemeToggle />
         <PlayButton />
+        <SettingsButton />
       </Toolbar>
       <GoogleMap />
     </ThemeProvider>
