@@ -141,7 +141,10 @@ const AddressInput = () => {
     [options]
   );
 
-  const handleToggleShowCollapse = () => setShowOptions((prev) => !prev);
+  const handleToggleShowCollapse = () => {
+    if (options.length === 0) return;
+    setShowOptions((prev) => !prev);
+  };
 
   const renderOption = (option) => {
     const { structured_formatting } = option || {};
@@ -179,7 +182,11 @@ const AddressInput = () => {
         <StyledList>{options.map((option) => renderOption(option))}</StyledList>
       )}
       <StyledIconButton onClick={handleToggleShowCollapse}>
-        {showOptions ? <ChevronDownIcon /> : <ChevronUpIcon />}
+        {showOptions || !options.length ? (
+          <ChevronDownIcon />
+        ) : (
+          <ChevronUpIcon />
+        )}
       </StyledIconButton>
     </Container>
   );
