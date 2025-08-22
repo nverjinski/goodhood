@@ -29,10 +29,10 @@ const StyledFieldSet = styled.fieldset`
     `}
 
   /* Change border color on focus */
-  ${({ hasFocus }) =>
+  ${({ theme, hasFocus }) =>
     hasFocus &&
     css`
-      border-color: #007bff;
+      border-color: ${theme.accent};
       border-width: 2px;
     `}
 `;
@@ -51,10 +51,10 @@ const StyledLabel = styled.label`
   transform-origin: left top;
 
   /* This 'css' block applies when the input has a value or is focused */
-  ${({ hasFocus }) =>
+  ${({ theme, hasFocus }) =>
     hasFocus &&
     css`
-      color: #007bff;
+      color: ${theme.accent};
     `}
   ${({ hasValue, hasFocus }) =>
     (hasValue || hasFocus) &&
