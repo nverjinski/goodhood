@@ -9,7 +9,7 @@ function flyTo(map, target, duration = 2000) {
     zoom: map.getZoom(),
   };
 
-  const peakZoom = 13.5;
+  const peakZoom = 14;
   const startTime = performance.now();
 
   function easeInOutCubic(t) {
