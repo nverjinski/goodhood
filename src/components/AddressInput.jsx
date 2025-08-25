@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { TextField } from "@components/base";
-import styled from "styled-components";
+import { useMap } from "@vis.gl/react-google-maps";
 import {
   MapPinIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
+import { TextField } from "@components/base";
+import styled from "styled-components";
+import mapUtils from "@utils/mapUtils";
 import { debounce } from "@utils/timingUtils";
 
 const Container = styled.div`
@@ -95,6 +97,7 @@ const AddressInput = () => {
   const [options, setOptions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
   const searchBlockRef = useRef(false);
+  const map = useMap();
 
   const fetchPredictions = useCallback(
     debounce((input) => {
@@ -114,6 +117,20 @@ const AddressInput = () => {
     }, 400),
     []
   );
+
+  const fetchGeocoding = useCallback((input) => {
+    if (!input) {
+      return;
+    }
+    return fetch(`/api/google-geocoding?input=${input}`)
+      .then((res) => res.json())
+      .then((data) => {
+        return data?.results?.[0]?.geometry?.location;
+      })
+      .catch((error) => {
+        console.error("Error fetching geocoding data:", error);
+      });
+  }, []);
 
   useEffect(() => {
     if (searchBlockRef.current) {
@@ -136,6 +153,9 @@ const AddressInput = () => {
         setValue(selectedOption.description);
         setOptions([]);
         setShowOptions(false);
+        fetchGeocoding(selectedOption.place_id).then((targetLocation) =>
+          mapUtils.flyTo(map, { center: targetLocation, zoom: 17 })
+        );
       }
     },
     [options]

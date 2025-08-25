@@ -1,4 +1,5 @@
 function flyTo(map, target, duration = 2000) {
+  if (!map || !target || !target.center) return;
   const safeTarget = {
     center: target.center,
     zoom: typeof target.zoom === "number" ? target.zoom : map.getZoom(),
