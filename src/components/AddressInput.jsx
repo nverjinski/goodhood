@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
+import { useDispatch } from "react-redux";
 import {
   MapPinIcon,
   ChevronDownIcon,
@@ -9,6 +10,7 @@ import { TextField } from "@components/base";
 import styled from "styled-components";
 import mapUtils from "@utils/mapUtils";
 import { debounce } from "@utils/timingUtils";
+import { addLocationHistory, setSelectedLocation } from "../app/locationSlice";
 
 const Container = styled.div`
   position: relative;
@@ -98,6 +100,7 @@ const AddressInput = () => {
   const [showOptions, setShowOptions] = useState(false);
   const searchBlockRef = useRef(false);
   const map = useMap();
+  const dispatch = useDispatch();
 
   const fetchPredictions = useCallback(
     debounce((input) => {
@@ -125,7 +128,7 @@ const AddressInput = () => {
     return fetch(`/api/google-geocoding?input=${input}`)
       .then((res) => res.json())
       .then((data) => {
-        return data?.results?.[0]?.geometry?.location;
+        return data?.results?.[0];
       })
       .catch((error) => {
         console.error("Error fetching geocoding data:", error);
@@ -150,12 +153,18 @@ const AddressInput = () => {
 
       if (selectedOption) {
         searchBlockRef.current = true;
-        setValue(selectedOption.description);
+        setValue("");
         setOptions([]);
         setShowOptions(false);
-        fetchGeocoding(selectedOption.place_id).then((targetLocation) =>
-          mapUtils.flyTo(map, { center: targetLocation, zoom: 17 })
-        );
+        fetchGeocoding(selectedOption.place_id).then((targetLocation) => {
+          mapUtils.flyTo(map, {
+            center: targetLocation?.geometry?.location,
+            zoom: 17,
+          });
+          const combinedLocationData = { ...targetLocation, ...selectedOption };
+          dispatch(addLocationHistory(combinedLocationData));
+          dispatch(setSelectedLocation(combinedLocationData));
+        });
       }
     },
     [options]

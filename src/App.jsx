@@ -8,6 +8,7 @@ import Toolbox from "@components/Toolbox";
 import AddressInput from "@components/AddressInput";
 import SettingsButton from "@components/SettingsButton";
 import LoginButton from "@components/LoginButton";
+import LocationHistory from "@components/LocationHistory";
 
 function App() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -20,6 +21,7 @@ function App() {
       <APIProvider apiKey={apiKey}>
         <Toolbox>
           <AddressInput />
+          <LocationHistory />
         </Toolbox>
         <Toolbar>
           <ThemeToggle />

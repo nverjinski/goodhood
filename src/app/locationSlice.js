@@ -13,7 +13,13 @@ export const locationSlice = createSlice({
       state.selectedLocation = action.payload;
     },
     addLocationHistory: (state, action) => {
-      state.locationHistory.push(action.payload);
+      if (
+        !state.locationHistory.find(
+          (loc) => loc.place_id === action.payload.place_id
+        )
+      ) {
+        state.locationHistory.push(action.payload);
+      }
     },
     removeLocationHistory: (state, action) => {
       state.locationHistory = state.locationHistory.filter(
