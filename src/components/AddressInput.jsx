@@ -211,12 +211,14 @@ const AddressInput = () => {
           {options.map((option) => renderOption(option))}
         </StyledList>
       )}
-      <StyledIconButton
-        onClick={handleClearClick}
-        onMouseDown={(e) => e.preventDefault()}
-      >
-        <XMarkIcon />
-      </StyledIconButton>
+      {isInputFocused && value && (
+        <StyledIconButton
+          onClick={handleClearClick}
+          onMouseDown={(e) => e.preventDefault()}
+        >
+          <XMarkIcon />
+        </StyledIconButton>
+      )}
     </Container>
   );
 };
