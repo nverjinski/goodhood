@@ -10,7 +10,6 @@ function flyTo(map, target, duration = 2000) {
     zoom: map.getZoom(),
   };
 
-  console.log(getDistanceInMiles(start.center, safeTarget.center));
   if (getDistanceInMiles(start.center, safeTarget.center) > 50) {
     map.setCenter(safeTarget.center);
     map.setZoom(safeTarget.zoom);
