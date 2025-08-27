@@ -1,10 +1,13 @@
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useMap } from "@vis.gl/react-google-maps";
-import { MapPinIcon } from "@heroicons/react/24/solid";
+import { MapPinIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import mapUtils from "@utils/mapUtils";
-import { setSelectedLocation } from "../app/locationSlice";
+import {
+  setSelectedLocation,
+  removeLocationHistory,
+} from "../app/locationSlice";
 
 const StyledListContainer = styled.div`
   width: 100%;
@@ -36,12 +39,10 @@ const MapPinIconContainer = styled.div`
 `;
 
 const StyledIconButton = styled.div`
-  position: absolute;
   height: 20px;
   width: 20px;
   top: 50%;
   right: 12px;
-  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
@@ -73,6 +74,7 @@ const SecondaryText = styled.div`
   text-overflow: ellipsis;
 `;
 const LocationHistory = () => {
+  const [hoveredItemId, setHoveredItemId] = useState(null);
   const map = useMap();
   const dispatch = useDispatch();
   const locationHistory = useSelector(
@@ -93,6 +95,11 @@ const LocationHistory = () => {
     [map]
   );
 
+  const handleClearClick = (event, location) => {
+    event.stopPropagation();
+    dispatch(removeLocationHistory(location));
+  };
+
   if (!locationHistory.length) {
     return;
   }
@@ -103,6 +110,8 @@ const LocationHistory = () => {
         key={location.place_id}
         onClick={() => handleLocationClick(location)}
         isSelected={location?.place_id === selectedLocation?.place_id}
+        onMouseEnter={() => setHoveredItemId(location.place_id)}
+        onMouseLeave={() => setHoveredItemId(null)}
       >
         <MapPinIconContainer>
           <MapPinIcon />
@@ -113,6 +122,11 @@ const LocationHistory = () => {
             {location.structured_formatting.secondary_text}
           </SecondaryText>
         </TextContainer>
+        {location.place_id === hoveredItemId && (
+          <StyledIconButton onClick={(e) => handleClearClick(e, location)}>
+            <XMarkIcon />
+          </StyledIconButton>
+        )}
       </ListItemWrapper>
     );
   };

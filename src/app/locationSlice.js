@@ -23,7 +23,7 @@ export const locationSlice = createSlice({
     },
     removeLocationHistory: (state, action) => {
       state.locationHistory = state.locationHistory.filter(
-        (location) => location.id !== action.payload.id
+        (location) => location.place_id !== action.payload.place_id
       );
     },
   },
