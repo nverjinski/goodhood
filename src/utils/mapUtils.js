@@ -6,9 +6,15 @@ function flyTo(map, target, duration = 2000) {
   };
 
   const start = {
-    center: map.getCenter(),
+    center: { lat: map.getCenter().lat(), lng: map.getCenter().lng() },
     zoom: map.getZoom(),
   };
+
+  console.log(getDistanceInMiles(start.center, safeTarget.center));
+  if (getDistanceInMiles(start.center, safeTarget.center) > 50) {
+    map.setCenter(safeTarget.center);
+    return;
+  }
 
   const peakZoom = 14;
   const startTime = performance.now();
@@ -35,11 +41,11 @@ function flyTo(map, target, duration = 2000) {
     }
 
     const lat =
-      start.center.lat() +
-      (safeTarget.center.lat - start.center.lat()) * easedProgress;
+      start.center.lat +
+      (safeTarget.center.lat - start.center.lat) * easedProgress;
     const lng =
-      start.center.lng() +
-      (safeTarget.center.lng - start.center.lng()) * easedProgress;
+      start.center.lng +
+      (safeTarget.center.lng - start.center.lng) * easedProgress;
 
     map.moveCamera({ center: { lat, lng }, zoom });
 
@@ -49,6 +55,36 @@ function flyTo(map, target, duration = 2000) {
   }
 
   requestAnimationFrame(animate);
+}
+
+function getDistanceInMiles(pointA, pointB) {
+  const { lat: lat1, lng: lon1 } = pointA;
+  const { lat: lat2, lng: lon2 } = pointB;
+
+  // Earth's radius in miles.
+  const R = 3958.8;
+
+  // Convert degrees to radians.
+  const toRad = (value) => (value * Math.PI) / 180;
+
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const radLat1 = toRad(lat1);
+  const radLat2 = toRad(lat2);
+
+  // Haversine formula calculation.
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) *
+      Math.sin(dLon / 2) *
+      Math.cos(radLat1) *
+      Math.cos(radLat2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c;
+
+  return distance;
 }
 
 export default { flyTo };
