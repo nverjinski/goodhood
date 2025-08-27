@@ -1,11 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useDispatch } from "react-redux";
-import {
-  MapPinIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@heroicons/react/24/solid";
+import { MapPinIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { TextField } from "@components/base";
 import styled from "styled-components";
 import mapUtils from "@utils/mapUtils";
@@ -21,7 +17,7 @@ const StyledList = styled.ul`
   top: 100%;
   left: 0;
   right: 0;
-  background-color: ${({ theme }) => theme.primary_base}C0;
+  background-color: ${({ theme }) => theme.primary_base};
   list-style: none;
   padding: 0;
   margin-top: 4px;
@@ -97,10 +93,12 @@ const SecondaryText = styled.div`
 const AddressInput = () => {
   const [value, setValue] = useState("");
   const [options, setOptions] = useState([]);
-  const [showOptions, setShowOptions] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const searchBlockRef = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
+
+  const displayOptions = options.length > 0 && isInputFocused;
 
   const fetchPredictions = useCallback(
     debounce((input) => {
@@ -141,7 +139,6 @@ const AddressInput = () => {
       return;
     }
     fetchPredictions(value);
-    setShowOptions(true);
   }, [value]);
 
   const handleOptionClick = useCallback(
@@ -155,7 +152,6 @@ const AddressInput = () => {
         searchBlockRef.current = true;
         setValue("");
         setOptions([]);
-        setShowOptions(false);
         fetchGeocoding(selectedOption.place_id).then((targetLocation) => {
           mapUtils.flyTo(map, {
             center: targetLocation?.geometry?.location,
@@ -167,12 +163,16 @@ const AddressInput = () => {
         });
       }
     },
-    [options]
+    [options, map]
   );
 
-  const handleToggleShowCollapse = () => {
-    if (options.length === 0) return;
-    setShowOptions((prev) => !prev);
+  const handleInputChange = (newValue) => {
+    setValue(newValue);
+  };
+
+  const handleClearClick = () => {
+    setOptions([]);
+    setValue("");
   };
 
   const renderOption = (option) => {
@@ -203,19 +203,19 @@ const AddressInput = () => {
         label="Search Address"
         id="address-input"
         value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
+        onChange={handleInputChange}
+        onFocusChange={setIsInputFocused}
       />
-      {showOptions && options.length > 0 && (
-        <StyledList>{options.map((option) => renderOption(option))}</StyledList>
+      {displayOptions && (
+        <StyledList onMouseDown={(e) => e.preventDefault()}>
+          {options.map((option) => renderOption(option))}
+        </StyledList>
       )}
-      <StyledIconButton onClick={handleToggleShowCollapse}>
-        {showOptions || !options.length ? (
-          <ChevronDownIcon />
-        ) : (
-          <ChevronUpIcon />
-        )}
+      <StyledIconButton
+        onClick={handleClearClick}
+        onMouseDown={(e) => e.preventDefault()}
+      >
+        <XMarkIcon />
       </StyledIconButton>
     </Container>
   );

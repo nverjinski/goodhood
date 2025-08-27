@@ -103,6 +103,7 @@ const TextField = ({
   id,
   value: propsValue = "",
   onChange = () => {},
+  onFocusChange = () => {},
 }) => {
   const [value, setValue] = useState(propsValue);
   const [isFocused, setIsFocused] = useState(false);
@@ -117,6 +118,10 @@ const TextField = ({
       setValue(propsValue);
     }
   }, [propsValue]);
+
+  useEffect(() => {
+    onFocusChange(isFocused);
+  }, [isFocused]);
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
