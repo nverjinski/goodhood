@@ -1,5 +1,6 @@
 import { useMemo, useState, useCallback } from "react";
-import { Map } from "@vis.gl/react-google-maps";
+import { useSelector } from "react-redux";
+import { Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
 import DeckOverlay from "./DeckOverlay";
@@ -26,6 +27,13 @@ const GoogleMap = () => {
   const [mapCenter, setMapCenter] = useState(defaultMapCenter);
   const [mapZoom, setMapZoom] = useState(defaultMapZoom);
   const [hoverInfo, setHoverInfo] = useState(null);
+
+  const locationHistory = useSelector(
+    (state) => state.location.locationHistory
+  );
+  const selectedLocation = useSelector(
+    (state) => state.location.selectedLocation
+  );
 
   const handleCameraChange = useCallback((e) => {
     if (!e.detail.center || !e.detail.zoom) return;
@@ -84,8 +92,6 @@ const GoogleMap = () => {
         key={theme.mode}
         defaultCenter={mapCenter}
         defaultZoom={mapZoom}
-        //center={mapCenter}
-        //zoom={mapZoom}
         onCameraChanged={handleCameraChange}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
@@ -95,6 +101,18 @@ const GoogleMap = () => {
         colorScheme={theme.mode.toUpperCase()}
       >
         <DeckOverlay layers={layers} />
+        {locationHistory.map((location) => (
+          <AdvancedMarker
+            key={location.place_id}
+            position={location.geometry.location}
+          >
+            <Pin
+              background={"#FBBC04"}
+              borderColor={"#000"}
+              glyphColor={"#000"}
+            />
+          </AdvancedMarker>
+        ))}
       </Map>
 
       {hoverInfo && hoverInfo.object && (
