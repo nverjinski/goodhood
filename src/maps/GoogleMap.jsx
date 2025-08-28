@@ -1,10 +1,11 @@
 import { useMemo, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
+import { Map, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
-import DeckOverlay from "./DeckOverlay";
 import { useTheme } from "@contexts/ThemeContext";
+import LocationMarker from "@maps/markers/LocationMarker";
+import DeckOverlay from "./DeckOverlay";
 
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
 const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
@@ -106,10 +107,8 @@ const GoogleMap = () => {
             key={location.place_id}
             position={location.geometry.location}
           >
-            <Pin
-              background={"#FBBC04"}
-              borderColor={"#000"}
-              glyphColor={"#000"}
+            <LocationMarker
+              address={location.structured_formatting.main_text}
             />
           </AdvancedMarker>
         ))}
