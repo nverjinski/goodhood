@@ -38,7 +38,6 @@ const PlayButton = () => {
 
   const handleClick = () => {
     if (map) {
-      console.log({ map });
       const newLocation = { lat: 40.7128, lng: -74.006 }; // Example: New York City
       mapUtils.flyTo(map, { center: newLocation, zoom: 17 });
     }
