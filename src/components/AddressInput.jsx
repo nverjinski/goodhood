@@ -97,7 +97,6 @@ const AddressInput = () => {
   const searchBlockRef = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
-  console.log({ map });
 
   const displayOptions = options.length > 0 && isInputFocused;
 
