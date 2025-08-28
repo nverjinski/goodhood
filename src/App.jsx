@@ -1,14 +1,16 @@
 import GoogleMap from "@maps/GoogleMap";
 import { ThemeProvider } from "@contexts/ThemeContext";
 import { APIProvider } from "@vis.gl/react-google-maps";
-import ThemeToggle from "@components/ThemeToggle";
-import PlayButton from "@components/PlayButton";
-import Toolbar from "@components/Toolbar";
-import Toolbox from "@components/Toolbox";
-import AddressInput from "@components/AddressInput";
-import SettingsButton from "@components/SettingsButton";
-import LoginButton from "@components/LoginButton";
-import LocationHistory from "@components/LocationHistory";
+import {
+  Toolbar,
+  Toolbox,
+  AddressInput,
+  LocationHistory,
+  ThemeToggle,
+  SettingsButton,
+  LoginButton,
+  PlayButton,
+} from "@components";
 
 function App() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
