@@ -83,7 +83,13 @@ const GoogleMap = () => {
   }, [sourceData, handleHover, theme]);
 
   return (
-    <div style={{ height: "100vh", width: "100%", position: "relative" }}>
+    <div
+      style={{
+        height: "100vh",
+        width: "100%",
+        position: "relative",
+      }}
+    >
       <Map
         /*
           Setting the key={theme} ensures that the map updates when the theme changes. This was necessary
