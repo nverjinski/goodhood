@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState, useMemo } from "react";
 import styled from "styled-components";
 import { HomeIcon } from "@heroicons/react/24/solid";
 
@@ -8,12 +8,13 @@ const MarkerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Pill = styled.div`
-  padding: 3px;
+  padding: ${({ isHovered }) => (isHovered ? "4px 8px" : "3px")};
   background-color: ${({ theme }) => theme.primary_text};
-  border-radius: 50%;
+  border-radius: ${({ isHovered }) => (isHovered ? "16px" : "50%")};
   color: ${({ theme }) => theme.primary_base};
   box-shadow: ${({ theme }) =>
     theme.mode === "dark"
@@ -23,6 +24,13 @@ const Pill = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s ease-in-out;
+  min-height: 24px;
+  min-width: 24px;
 `;
 
 const PinLine = styled.div`
@@ -49,13 +57,27 @@ const IconWrapper = styled.div`
   color: ${({ theme }) => theme.primary_base};
 `;
 
-const LocationMarker = memo(() => {
+const LocationMarker = memo(({ address }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const shortAddress = useMemo(() => {
+    if (!address) return "";
+    return address.split(" ").slice(0, 2).join(" ");
+  }, [address]);
+
   return (
-    <MarkerContainer>
-      <Pill>
-        <IconWrapper>
-          <HomeIcon />
-        </IconWrapper>
+    <MarkerContainer
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Pill isHovered={isHovered}>
+        {isHovered ? (
+          shortAddress
+        ) : (
+          <IconWrapper>
+            <HomeIcon />
+          </IconWrapper>
+        )}
       </Pill>
       <PinLine />
       <PinBase />
