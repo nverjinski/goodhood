@@ -10,7 +10,14 @@ export const locationSlice = createSlice({
   initialState,
   reducers: {
     setSelectedLocation: (state, action) => {
-      state.selectedLocation = action.payload;
+      if (typeof action.payload === "string") {
+        state.selectedLocation =
+          state.locationHistory.find(
+            (loc) => loc.place_id === action.payload
+          ) || null;
+      } else {
+        state.selectedLocation = action.payload;
+      }
     },
     addLocationHistory: (state, action) => {
       if (

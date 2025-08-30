@@ -1,6 +1,8 @@
 import { memo, useState, useMemo } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { setSelectedLocation } from "../../app/locationSlice";
 
 const MarkerContainer = styled.div`
   position: absolute;
@@ -57,18 +59,25 @@ const IconWrapper = styled.div`
   color: ${({ theme }) => theme.primary_base};
 `;
 
-const LocationMarker = memo(({ address }) => {
+const LocationMarker = memo(({ id, address }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const dispatch = useDispatch();
 
   const shortAddress = useMemo(() => {
     if (!address) return "";
     return address.split(" ").slice(0, 2).join(" ");
   }, [address]);
 
+  const handleLocationClick = (e) => {
+    dispatch(setSelectedLocation(id));
+    e.stopPropagation();
+  };
+
   return (
     <MarkerContainer
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={(e) => handleLocationClick(e)}
     >
       <Pill isHovered={isHovered}>
         {isHovered ? (

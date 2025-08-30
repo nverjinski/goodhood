@@ -114,6 +114,7 @@ const GoogleMap = () => {
             position={location.geometry.location}
           >
             <LocationMarker
+              id={location.place_id}
               address={location.structured_formatting.main_text}
             />
           </AdvancedMarker>
