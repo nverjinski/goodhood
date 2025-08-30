@@ -1,6 +1,7 @@
 import GoogleMap from "@maps/GoogleMap";
 import { ThemeProvider } from "@contexts/ThemeContext";
 import { APIProvider } from "@vis.gl/react-google-maps";
+import { ExpansionPanel } from "./components/base";
 import {
   Toolbar,
   Toolbox,
@@ -23,7 +24,9 @@ function App() {
       <APIProvider apiKey={apiKey}>
         <Toolbox>
           <AddressInput />
-          <LocationHistory />
+          <ExpansionPanel title="Location History">
+            <LocationHistory />
+          </ExpansionPanel>
         </Toolbox>
         <Toolbar>
           <ThemeToggle />

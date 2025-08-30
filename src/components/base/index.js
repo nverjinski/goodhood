@@ -1,3 +1,4 @@
 import TextField from "./TextField";
+import ExpansionPanel from "./ExpansionPanel";
 
-export { TextField };
+export { TextField, ExpansionPanel };
