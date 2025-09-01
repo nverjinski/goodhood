@@ -35,6 +35,11 @@ const GoogleMap = () => {
   const selectedLocation = useSelector(
     (state) => state.location.selectedLocation
   );
+  const activeLayers = useSelector((state) =>
+    Object.keys(state.layer.layers).filter(
+      (layerName) => state.layer.layers[layerName].active
+    )
+  );
 
   const handleCameraChange = useCallback((e) => {
     if (!e.detail.center || !e.detail.zoom) return;
@@ -55,32 +60,38 @@ const GoogleMap = () => {
   }, []);
 
   const layers = useMemo(() => {
+    const selectedLayers = [];
     if (!Array.isArray(sourceData)) {
-      return [];
+      return selectedLayers;
     }
-    const colors = scatterplotColors[theme.mode];
 
-    return [
-      new ScatterplotLayer({
-        id: "scatterplot-layer",
-        data: sourceData,
-        opacity: 1, // between 0 and 1
-        stroked: true,
-        getLineWidth: 1,
-        filled: true,
-        lineWidthMaxPixels: 1,
-        radiusMinPixels: 6,
-        radiusMaxPixels: 20,
-        pickable: true,
-        onHover: handleHover,
-        getPosition: (d) => [d.longitude, d.latitude],
-        getFillColor: (d) => (d.n_killed > 0 ? colors.killed : colors.injured),
-        parameters: {
-          depthTest: false,
-        },
-      }),
-    ];
-  }, [sourceData, handleHover, theme]);
+    if (activeLayers.includes("gunCrimeLayer")) {
+      const colors = scatterplotColors[theme.mode];
+      selectedLayers.push(
+        new ScatterplotLayer({
+          id: "scatterplot-layer",
+          data: sourceData,
+          opacity: 1, // between 0 and 1
+          stroked: true,
+          getLineWidth: 1,
+          filled: true,
+          lineWidthMaxPixels: 1,
+          radiusMinPixels: 6,
+          radiusMaxPixels: 20,
+          pickable: true,
+          onHover: handleHover,
+          getPosition: (d) => [d.longitude, d.latitude],
+          getFillColor: (d) =>
+            d.n_killed > 0 ? colors.killed : colors.injured,
+          parameters: {
+            depthTest: false,
+          },
+        })
+      );
+    }
+
+    return selectedLayers;
+  }, [activeLayers, sourceData, handleHover, theme]);
 
   return (
     <div
