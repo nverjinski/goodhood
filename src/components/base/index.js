@@ -1,4 +1,5 @@
 import TextField from "./TextField";
 import ExpansionPanel from "./ExpansionPanel";
+import ToggleSwitch from "./ToggleSwitch";
 
-export { TextField, ExpansionPanel };
+export { ExpansionPanel, TextField, ToggleSwitch };
