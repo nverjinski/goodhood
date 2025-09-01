@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   layers: {
-    gunViolenceLayer: {
+    gunCrimeLayer: {
       active: true,
     },
   },
