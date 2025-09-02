@@ -14,6 +14,7 @@ export default defineConfig({
       "@utils": path.resolve("./src/utils"),
       "@maps": path.resolve("./src/maps"),
       "@styles": path.resolve("./src/styles"),
+      "@constants": path.resolve("./src/constants"),
     },
   },
 });

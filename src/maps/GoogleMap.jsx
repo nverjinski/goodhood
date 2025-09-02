@@ -4,6 +4,7 @@ import { Map, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
 import { useTheme } from "@contexts/ThemeContext";
+import { LAYER_NAMES } from "@constants/layers";
 import LocationMarker from "@maps/markers/LocationMarker";
 import DeckOverlay from "./DeckOverlay";
 
@@ -65,7 +66,7 @@ const GoogleMap = () => {
       return selectedLayers;
     }
 
-    if (activeLayers.includes("gunCrimeLayer")) {
+    if (activeLayers.includes(LAYER_NAMES.GUN_CRIME_LAYER)) {
       const colors = scatterplotColors[theme.mode];
       selectedLayers.push(
         new ScatterplotLayer({

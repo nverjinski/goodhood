@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { LAYER_NAMES } from "@constants/layers";
 
 const initialState = {
   layers: {
-    gunCrimeLayer: {
+    [LAYER_NAMES.GUN_CRIME_LAYER]: {
       active: true,
     },
   },
