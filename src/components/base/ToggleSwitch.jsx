@@ -31,7 +31,7 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
 const SwitchTrack = styled.div`
   position: relative;
   width: 33px;
-  height: 16px;
+  height: 18px;
   background-color: ${({ theme, checked }) =>
     checked ? theme.heavy_success : theme.heavy_line_outline};
   border-radius: 9999px;
@@ -41,7 +41,7 @@ const SwitchTrack = styled.div`
 
 const SwitchThumb = styled.div`
   position: absolute;
-  top: 1px;
+  top: 2px;
   left: 2px;
   width: 14px;
   height: 14px;
