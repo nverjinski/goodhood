@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const StyledInput = styled.input`
@@ -31,16 +32,19 @@ const StyledInput = styled.input`
  * @param {React.ChangeEventHandler<HTMLInputElement>} props.onChange - Handler for the change event.
  * @returns {JSX.Element} The rendered InputBase component.
  */
-const InputBase = ({ id, value, onFocus, onBlur, onChange }) => {
-  return (
-    <StyledInput
-      id={id}
-      type="text"
-      value={value}
-      onChange={onChange}
-      onFocus={onFocus}
-      onBlur={onBlur}
-    />
-  );
-};
+const InputBase = React.forwardRef(
+  ({ id, value, onFocus, onBlur, onChange }, ref) => {
+    return (
+      <StyledInput
+        id={id}
+        type="text"
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        ref={ref}
+      />
+    );
+  }
+);
 export default InputBase;

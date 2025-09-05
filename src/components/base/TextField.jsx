@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import InputBase from "./InputBase";
 
@@ -98,64 +98,70 @@ const StyledLegend = styled.legend`
  * @param {(value: string) => void} [props.onChange] - A callback function that fires when the input value changes.
  * @returns {JSX.Element} The rendered TextInput component.
  */
-const TextField = ({
-  label,
-  id,
-  value: propsValue = "",
-  onChange = () => {},
-  onFocusChange = () => {},
-}) => {
-  const [value, setValue] = useState(propsValue);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+const TextField = React.forwardRef(
+  (
+    {
+      label,
+      id,
+      value: propsValue = "",
+      onChange = () => {},
+      onFocusChange = () => {},
+    },
+    ref
+  ) => {
+    const [value, setValue] = useState(propsValue);
+    const [isFocused, setIsFocused] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
-  const hasFocus = isFocused;
-  const hasHovered = isHovered;
-  const hasValue = value !== "";
+    const hasFocus = isFocused;
+    const hasHovered = isHovered;
+    const hasValue = value !== "";
 
-  useEffect(() => {
-    if (propsValue !== value) {
-      setValue(propsValue);
-    }
-  }, [propsValue]);
+    useEffect(() => {
+      if (propsValue !== value) {
+        setValue(propsValue);
+      }
+    }, [propsValue]);
 
-  useEffect(() => {
-    onFocusChange(isFocused);
-  }, [isFocused]);
+    useEffect(() => {
+      onFocusChange(isFocused);
+    }, [isFocused]);
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    onChange(e.target.value);
-  };
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
+    const handleChange = (e) => {
+      setValue(e.target.value);
+      onChange(e.target.value);
+    };
 
-  return (
-    <StyledInputWrapper
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <StyledLabel hasFocus={hasFocus} hasValue={hasValue} htmlFor={id}>
-        {label}
-      </StyledLabel>
-      <InputBase
-        id={id}
-        value={value}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
-      <StyledFieldSet
-        aria-hidden="true"
-        hasFocus={hasFocus}
-        hasHovered={hasHovered}
+    return (
+      <StyledInputWrapper
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <StyledLegend hasFocus={hasFocus} hasValue={hasValue}>
-          <span>{label}</span>
-        </StyledLegend>
-      </StyledFieldSet>
-    </StyledInputWrapper>
-  );
-};
+        <StyledLabel hasFocus={hasFocus} hasValue={hasValue} htmlFor={id}>
+          {label}
+        </StyledLabel>
+        <InputBase
+          id={id}
+          value={value}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          ref={ref}
+        />
+        <StyledFieldSet
+          aria-hidden="true"
+          hasFocus={hasFocus}
+          hasHovered={hasHovered}
+        >
+          <StyledLegend hasFocus={hasFocus} hasValue={hasValue}>
+            <span>{label}</span>
+          </StyledLegend>
+        </StyledFieldSet>
+      </StyledInputWrapper>
+    );
+  }
+);
 
 export default TextField;

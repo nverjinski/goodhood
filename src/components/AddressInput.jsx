@@ -117,6 +117,7 @@ const AddressInput = () => {
   const [options, setOptions] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const searchAddressRef = useRef(null);
   const searchBlockRef = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
@@ -178,6 +179,7 @@ const AddressInput = () => {
       const selectedOption = options.find((opt) => opt.place_id === id);
 
       if (selectedOption) {
+        searchAddressRef.current?.blur();
         searchBlockRef.current = true;
         setValue("");
         setOptions([]);
@@ -192,7 +194,7 @@ const AddressInput = () => {
         });
       }
     },
-    [options, map, dispatch, fetchGeocoding]
+    [options, map, searchAddressRef]
   );
 
   const handleInputChange = (newValue) => {
@@ -236,6 +238,7 @@ const AddressInput = () => {
         value={value}
         onChange={handleInputChange}
         onFocusChange={setIsInputFocused}
+        ref={searchAddressRef}
       />
       {showDropdown && (
         <StyledList onMouseDown={(e) => e.preventDefault()}>
