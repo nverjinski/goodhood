@@ -111,6 +111,7 @@ const GoogleMap = () => {
         key={theme.mode}
         defaultCenter={mapCenter}
         defaultZoom={mapZoom}
+        minZoom={4.5}
         onCameraChanged={handleCameraChange}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
