@@ -28,7 +28,7 @@ const PanelTitle = styled.span`
 const AnimatedChevron = styled(ChevronUpIcon)`
   height: 20px;
   width: 20px;
-  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0)")};
+  transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0)")};
   transition: transform 0.2s ease-in-out;
   color: ${({ theme }) => theme.secondary_text};
 
@@ -39,7 +39,7 @@ const AnimatedChevron = styled(ChevronUpIcon)`
 
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-rows: ${({ isOpen }) => (isOpen ? "1fr" : "0fr")};
+  grid-template-rows: ${({ $isOpen }) => ($isOpen ? "1fr" : "0fr")};
   transition: grid-template-rows 0.2s ease-in-out;
 `;
 
@@ -57,10 +57,10 @@ const ExpansionPanel = ({ title, children, defaultOpen = true }) => {
     <PanelWrapper>
       <PanelHeader onClick={togglePanel} aria-expanded={isOpen}>
         <PanelTitle>{title}</PanelTitle>
-        <AnimatedChevron isOpen={isOpen} />
+        <AnimatedChevron $isOpen={isOpen} />
       </PanelHeader>
-      <ContentWrapper isOpen={isOpen}>
-        <Content isOpen={isOpen}>{children}</Content>
+      <ContentWrapper $isOpen={isOpen}>
+        <Content>{children}</Content>
       </ContentWrapper>
     </PanelWrapper>
   );

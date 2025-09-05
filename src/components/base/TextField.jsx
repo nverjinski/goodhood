@@ -22,15 +22,14 @@ const StyledFieldSet = styled.fieldset`
   border-radius: 4px;
   pointer-events: none;
 
-  ${({ theme, hasHovered }) =>
-    hasHovered &&
+  ${({ theme, $hasHovered }) =>
+    $hasHovered &&
     css`
       border-color: ${theme.primary_text};
     `}
 
-  /* Change border color on focus */
-  ${({ theme, hasFocus }) =>
-    hasFocus &&
+  ${({ theme, $hasFocus }) =>
+    $hasFocus &&
     css`
       border-color: ${theme.accent};
       border-width: 2px;
@@ -41,7 +40,6 @@ const StyledFieldSet = styled.fieldset`
 const StyledLabel = styled.label`
   position: absolute;
   left: 12px;
-  /* Centered vertically within the 50px wrapper */
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
@@ -50,14 +48,13 @@ const StyledLabel = styled.label`
   transition: all 0.15s ease-in-out;
   transform-origin: left top;
 
-  /* This 'css' block applies when the input has a value or is focused */
-  ${({ theme, hasFocus }) =>
-    hasFocus &&
+  ${({ theme, $hasFocus }) =>
+    $hasFocus &&
     css`
       color: ${theme.accent};
     `}
-  ${({ hasValue, hasFocus }) =>
-    (hasValue || hasFocus) &&
+  ${({ $hasValue, $hasFocus }) =>
+    ($hasValue || $hasFocus) &&
     css`
       transform: translateY(-38px) scale(0.8);
     `}
@@ -68,7 +65,6 @@ const StyledLegend = styled.legend`
   padding: 0;
   text-align: left;
   max-width: 0.01px;
-  /* Font size must match the scaled label size */
   font-size: 0.8em;
   visibility: hidden;
   transition: max-width 150ms cubic-bezier(0, 0, 0.2, 1);
@@ -77,13 +73,11 @@ const StyledLegend = styled.legend`
     display: inline-block;
     padding-left: 0px;
     padding-right: 5px;
-    /* This prevents the text from breaking into multiple lines */
     white-space: nowrap;
   }
 
-  /* Expand the legend to fit its text content when the input is active */
-  ${({ hasFocus, hasValue }) =>
-    (hasFocus || hasValue) &&
+  ${({ $hasFocus, $hasValue }) =>
+    ($hasFocus || $hasValue) &&
     css`
       max-width: 100%;
     `}
@@ -139,7 +133,7 @@ const TextField = React.forwardRef(
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <StyledLabel hasFocus={hasFocus} hasValue={hasValue} htmlFor={id}>
+        <StyledLabel $hasFocus={hasFocus} $hasValue={hasValue} htmlFor={id}>
           {label}
         </StyledLabel>
         <InputBase
@@ -152,10 +146,10 @@ const TextField = React.forwardRef(
         />
         <StyledFieldSet
           aria-hidden="true"
-          hasFocus={hasFocus}
-          hasHovered={hasHovered}
+          $hasFocus={hasFocus}
+          $hasHovered={hasHovered}
         >
-          <StyledLegend hasFocus={hasFocus} hasValue={hasValue}>
+          <StyledLegend $hasFocus={hasFocus} $hasValue={hasValue}>
             <span>{label}</span>
           </StyledLegend>
         </StyledFieldSet>
