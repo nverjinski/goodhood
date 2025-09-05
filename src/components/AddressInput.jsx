@@ -12,6 +12,7 @@ const Container = styled.div`
   position: relative;
   width: 100%;
 `;
+
 const StyledList = styled.ul`
   position: absolute;
   top: 100%;
@@ -25,10 +26,6 @@ const StyledList = styled.ul`
   border-radius: 4px;
   transition: background-color 0.3s ease-in-out;
   z-index: 10;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.primary_base};
-  }
 `;
 
 const ListItemWrapper = styled.li`
@@ -90,15 +87,39 @@ const SecondaryText = styled.div`
   text-overflow: ellipsis;
 `;
 
+const LoadingSpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+`;
+
+const Spinner = styled.div`
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border-left-color: ${({ theme }) => theme.secondary_text};
+  animation: spin 0.5s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 const AddressInput = () => {
   const [value, setValue] = useState("");
   const [options, setOptions] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const searchBlockRef = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
-
-  const displayOptions = options.length > 0 && isInputFocused;
 
   const fetchPredictions = useCallback(
     debounce((input) => {
@@ -114,8 +135,11 @@ const AddressInput = () => {
         .catch((error) => {
           console.error("Error fetching address predictions:", error);
           setOptions([]);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
-    }, 400),
+    }, 300),
     []
   );
 
@@ -138,8 +162,13 @@ const AddressInput = () => {
       searchBlockRef.current = false;
       return;
     }
+    if (value && !options.length) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
     fetchPredictions(value);
-  }, [value]);
+  }, [value, fetchPredictions]);
 
   const handleOptionClick = useCallback(
     (event) => {
@@ -163,7 +192,7 @@ const AddressInput = () => {
         });
       }
     },
-    [options, map]
+    [options, map, dispatch, fetchGeocoding]
   );
 
   const handleInputChange = (newValue) => {
@@ -197,6 +226,8 @@ const AddressInput = () => {
     );
   };
 
+  const showDropdown = isInputFocused && (isLoading || options.length > 0);
+
   return (
     <Container>
       <TextField
@@ -206,9 +237,15 @@ const AddressInput = () => {
         onChange={handleInputChange}
         onFocusChange={setIsInputFocused}
       />
-      {displayOptions && (
+      {showDropdown && (
         <StyledList onMouseDown={(e) => e.preventDefault()}>
-          {options.map((option) => renderOption(option))}
+          {isLoading ? (
+            <LoadingSpinnerWrapper>
+              <Spinner />
+            </LoadingSpinnerWrapper>
+          ) : (
+            options.map((option) => renderOption(option))
+          )}
         </StyledList>
       )}
       {isInputFocused && value && (
