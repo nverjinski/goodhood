@@ -21,8 +21,8 @@ const ListItemWrapper = styled.li`
   transition: background-color 150ms ease-in-out;
 
   border-left: 4px solid
-    ${({ isSelected, theme }) =>
-      isSelected ? theme.secondary_text : "transparent"};
+    ${({ $isSelected, theme }) =>
+      $isSelected ? theme.secondary_text : "transparent"};
 
   &:hover {
     background-color: ${({ theme }) => theme.secondary_base};
@@ -109,7 +109,7 @@ const LocationHistory = () => {
       <ListItemWrapper
         key={location.place_id}
         onClick={() => handleLocationClick(location)}
-        isSelected={location?.place_id === selectedLocation?.place_id}
+        $isSelected={location?.place_id === selectedLocation?.place_id}
         onMouseEnter={() => setHoveredItemId(location.place_id)}
         onMouseLeave={() => setHoveredItemId(null)}
       >
