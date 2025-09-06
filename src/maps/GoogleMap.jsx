@@ -5,6 +5,7 @@ import { ScatterplotLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
 import { useTheme } from "@contexts/ThemeContext";
 import { LAYER_NAMES } from "@constants/layers";
+import { MIN_ZOOM } from "@constants/googleMapConstants";
 import LocationMarker from "@maps/markers/LocationMarker";
 import DeckOverlay from "./DeckOverlay";
 
@@ -111,6 +112,7 @@ const GoogleMap = () => {
         key={theme.mode}
         defaultCenter={mapCenter}
         defaultZoom={mapZoom}
+        minZoom={MIN_ZOOM}
         onCameraChanged={handleCameraChange}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
