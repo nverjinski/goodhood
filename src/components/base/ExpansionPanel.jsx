@@ -7,7 +7,11 @@ const PanelWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.light_line_divider};
   border-radius: 4px;
   &:hover {
-    border-color: ${({ theme }) => theme.primary_text};
+    border-color: ${({ theme, $disabled }) =>
+      !$disabled &&
+      `
+        border-color: ${theme.primary_text};
+      `};
   }
 `;
 
@@ -18,11 +22,12 @@ const PanelHeader = styled.div`
   padding: 16px;
   text-align: left;
   border: none;
-  cursor: pointer;
+  cursor: ${({ $disabled }) => !$disabled && "pointer"};
 `;
 
 const PanelTitle = styled.span`
-  color: ${({ theme }) => theme.secondary_text};
+  color: ${({ theme, $disabled }) =>
+    $disabled ? theme.heavy_line_outline : theme.secondary_text};
 `;
 
 const AnimatedChevron = styled(ChevronUpIcon)`
@@ -30,10 +35,11 @@ const AnimatedChevron = styled(ChevronUpIcon)`
   width: 20px;
   transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0)")};
   transition: transform 0.2s ease-in-out;
-  color: ${({ theme }) => theme.secondary_text};
+  color: ${({ theme, $disabled }) =>
+    $disabled ? theme.light_line_divider : theme.secondary_text};
 
   &:hover {
-    color: ${({ theme }) => theme.primary_text};
+    color: ${({ theme, $disabled }) => !$disabled && theme.primary_text};
   }
 `;
 
@@ -46,18 +52,28 @@ const ContentWrapper = styled.div`
 const Content = styled.div`
   overflow: hidden;
 `;
-const ExpansionPanel = ({ title, children, defaultOpen = true }) => {
+const ExpansionPanel = ({
+  title,
+  children,
+  defaultOpen = true,
+  disabled = false,
+}) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const togglePanel = () => {
+    if (disabled) return;
     setIsOpen(!isOpen);
   };
 
   return (
-    <PanelWrapper>
-      <PanelHeader onClick={togglePanel} aria-expanded={isOpen}>
-        <PanelTitle>{title}</PanelTitle>
-        <AnimatedChevron $isOpen={isOpen} />
+    <PanelWrapper $disabled={disabled}>
+      <PanelHeader
+        onClick={togglePanel}
+        aria-expanded={isOpen}
+        $disabled={disabled}
+      >
+        <PanelTitle $disabled={disabled}>{title}</PanelTitle>
+        <AnimatedChevron $isOpen={isOpen} $disabled={disabled} />
       </PanelHeader>
       <ContentWrapper $isOpen={isOpen}>
         <Content>{children}</Content>
