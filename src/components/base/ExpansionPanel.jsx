@@ -7,11 +7,7 @@ const PanelWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.light_line_divider};
   border-radius: 4px;
   &:hover {
-    border-color: ${({ theme, $disabled }) =>
-      !$disabled &&
-      `
-        border-color: ${theme.primary_text};
-      `};
+    border-color: ${({ theme, $disabled }) => !$disabled && theme.primary_text};
   }
 `;
 
