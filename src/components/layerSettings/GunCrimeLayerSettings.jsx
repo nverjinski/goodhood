@@ -11,7 +11,7 @@ const GunCrimeLayerSettings = () => {
 
   return (
     <ToggleSwitch
-      label="Gun Crime Layer"
+      label="Gun Crime"
       checked={isLayerActive}
       onChange={() => dispatch(toggleActiveLayer(LAYER_NAMES.GUN_CRIME_LAYER))}
     />
