@@ -3,7 +3,10 @@ import GoogleMap from "@maps/GoogleMap";
 import { ThemeProvider } from "@contexts/ThemeContext";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { ExpansionPanel } from "./components/base";
-import { GunCrimeLayerSettings } from "@components/layerSettings";
+import {
+  GunCrimeLayerSettings,
+  OffenderLayerSettings,
+} from "@components/layerSettings";
 import {
   Toolbar,
   Toolbox,
@@ -35,6 +38,7 @@ function App() {
           </ExpansionPanel>
           <ExpansionPanel title="Layers" defaultOpen={false}>
             <GunCrimeLayerSettings />
+            <OffenderLayerSettings />
           </ExpansionPanel>
         </Toolbox>
         <Toolbar>
