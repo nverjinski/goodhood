@@ -14,9 +14,9 @@ const MarkerContainer = styled.div`
 `;
 
 const Pill = styled.div`
-  padding: ${({ isHovered }) => (isHovered ? "4px 8px" : "3px")};
+  padding: ${({ $isHovered }) => ($isHovered ? "4px 8px" : "3px")};
   background-color: ${({ theme }) => theme.primary_text};
-  border-radius: ${({ isHovered }) => (isHovered ? "16px" : "50%")};
+  border-radius: ${({ $isHovered }) => ($isHovered ? "16px" : "50%")};
   color: ${({ theme }) => theme.primary_base};
   box-shadow: ${({ theme }) =>
     theme.mode === "dark"
@@ -79,7 +79,7 @@ const LocationMarker = memo(({ id, address }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={(e) => handleLocationClick(e)}
     >
-      <Pill isHovered={isHovered}>
+      <Pill $isHovered={isHovered}>
         {isHovered ? (
           shortAddress
         ) : (
