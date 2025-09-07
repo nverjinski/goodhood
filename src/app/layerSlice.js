@@ -6,6 +6,9 @@ const initialState = {
     [LAYER_NAMES.GUN_CRIME_LAYER]: {
       active: true,
     },
+    [LAYER_NAMES.OFFENDER_LAYER]: {
+      active: false,
+    },
   },
 };
 
