@@ -1,0 +1,20 @@
+import { useSelector, useDispatch } from "react-redux";
+import ToggleSwitch from "@components/base/ToggleSwitch";
+import { LAYER_NAMES } from "@constants/layers";
+import { toggleActiveLayer } from "../../app/layerSlice";
+
+const OffenderLayerSettings = () => {
+  const dispatch = useDispatch();
+  const isLayerActive = useSelector(
+    (state) => state.layer.layers[LAYER_NAMES.OFFENDER_LAYER].active
+  );
+
+  return (
+    <ToggleSwitch
+      label="Sex Offenders"
+      checked={isLayerActive}
+      onChange={() => dispatch(toggleActiveLayer(LAYER_NAMES.OFFENDER_LAYER))}
+    />
+  );
+};
+export default OffenderLayerSettings;
