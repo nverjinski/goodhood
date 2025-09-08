@@ -7,7 +7,7 @@ import { useTheme } from "@contexts/ThemeContext";
 import { LAYER_NAMES } from "@constants/layers";
 import { MIN_ZOOM } from "@constants/googleMap";
 import LocationMarker from "@maps/markers/LocationMarker";
-import DeckOverlay from "./DeckOverlay";
+import DeckOverlay from "@maps/DeckOverlay";
 
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
 const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
