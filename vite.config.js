@@ -15,6 +15,7 @@ export default defineConfig({
       "@maps": path.resolve("./src/maps"),
       "@styles": path.resolve("./src/styles"),
       "@constants": path.resolve("./src/constants"),
+      "@hooks": path.resolve("./src/hooks"),
     },
   },
 });
