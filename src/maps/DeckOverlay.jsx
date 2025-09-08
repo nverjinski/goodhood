@@ -1,34 +1,23 @@
-import { useState, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
 
 const DeckOverlay = ({ layers }) => {
   const map = useMap();
 
-  const [overlay, setOverlay] = useState(null);
+  const overlay = useMemo(() => new GoogleMapsOverlay({}), []);
 
-  // Create the overlay when the map is ready
   useEffect(() => {
-    if (!map) {
-      return;
+    if (map) {
+      overlay.setMap(map);
     }
-
-    const newOverlay = new GoogleMapsOverlay({});
-    newOverlay.setMap(map);
-    setOverlay(newOverlay);
 
     return () => {
-      newOverlay.finalize();
-      newOverlay.setMap(null);
+      overlay.setMap(null);
     };
-  }, [map]);
+  }, [map, overlay]);
 
-  // Update the overlay with new layers
   useEffect(() => {
-    if (!overlay) {
-      return;
-    }
-
     overlay.setProps({ layers });
   }, [overlay, layers]);
 
