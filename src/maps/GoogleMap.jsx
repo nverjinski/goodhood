@@ -16,11 +16,20 @@ const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
 const GoogleMap = () => {
   const { theme } = useTheme();
 
+  const [mapCenter, setMapCenter] = useState(DEFAULT_MAP_CENTER);
+  const [mapZoom, setMapZoom] = useState(DEFAULT_MAP_ZOOM);
+
   const [hoverInfo, setHoverInfo] = useState(null);
 
   const locationHistory = useSelector(
     (state) => state.location.locationHistory
   );
+
+  const handleCameraChange = useCallback((e) => {
+    if (!e.detail.center || !e.detail.zoom) return;
+    setMapCenter(e.detail.center);
+    setMapZoom(e.detail.zoom);
+  }, []);
 
   const handleHover = useCallback((info) => {
     setHoverInfo((prevInfo) => {
@@ -51,9 +60,10 @@ const GoogleMap = () => {
           and google will charge for the map load. TODO: find another solution to the layer rendering issue
         */
         key={theme.mode}
-        defaultCenter={DEFAULT_MAP_CENTER}
-        defaultZoom={DEFAULT_MAP_ZOOM}
+        defaultCenter={mapCenter}
+        defaultZoom={mapZoom}
         minZoom={MIN_ZOOM}
+        onCameraChanged={handleCameraChange}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
         mapId={mapId}
