@@ -5,6 +5,7 @@ import { GoogleMapsOverlay } from "@deck.gl/google-maps";
 const DeckOverlay = ({ layers }) => {
   const map = useMap();
 
+  // Solves a subtle race condition where overlay isnt able to set its layers
   const overlay = useMemo(() => new GoogleMapsOverlay({}), []);
 
   useEffect(() => {

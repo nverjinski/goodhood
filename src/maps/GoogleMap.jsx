@@ -3,30 +3,24 @@ import { useSelector } from "react-redux";
 import { Map, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { useDeckLayers } from "@hooks/useDeckLayers";
 import { useTheme } from "@contexts/ThemeContext";
-import { MIN_ZOOM } from "@constants/googleMap";
+import {
+  MIN_ZOOM,
+  DEFAULT_MAP_CENTER,
+  DEFAULT_MAP_ZOOM,
+} from "@constants/googleMap";
 import LocationMarker from "@maps/markers/LocationMarker";
 import DeckOverlay from "@maps/DeckOverlay";
 
 const mapId = import.meta.env.VITE_GOOGLE_MAPS_ID;
-const defaultMapCenter = { lat: 38.894382, lng: -77.036528 }; // Washington, DC
-const defaultMapZoom = 12;
 
 const GoogleMap = () => {
   const { theme } = useTheme();
 
-  const [mapCenter, setMapCenter] = useState(defaultMapCenter);
-  const [mapZoom, setMapZoom] = useState(defaultMapZoom);
   const [hoverInfo, setHoverInfo] = useState(null);
 
   const locationHistory = useSelector(
     (state) => state.location.locationHistory
   );
-
-  const handleCameraChange = useCallback((e) => {
-    if (!e.detail.center || !e.detail.zoom) return;
-    setMapCenter(e.detail.center);
-    setMapZoom(e.detail.zoom);
-  }, []);
 
   const handleHover = useCallback((info) => {
     setHoverInfo((prevInfo) => {
@@ -57,10 +51,9 @@ const GoogleMap = () => {
           and google will charge for the map load. TODO: find another solution to the layer rendering issue
         */
         key={theme.mode}
-        defaultCenter={mapCenter}
-        defaultZoom={mapZoom}
+        defaultCenter={DEFAULT_MAP_CENTER}
+        defaultZoom={DEFAULT_MAP_ZOOM}
         minZoom={MIN_ZOOM}
-        onCameraChanged={handleCameraChange}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
         mapId={mapId}
