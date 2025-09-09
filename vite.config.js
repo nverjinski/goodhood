@@ -7,15 +7,16 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@components": path.resolve("./src/components"),
       "@assets": path.resolve("./src/assets"),
+      "@components": path.resolve("./src/components"),
+      "@constants": path.resolve("./src/constants"),
       "@contexts": path.resolve("./src/contexts"),
       "@datasets": path.resolve("./src/datasets"),
-      "@utils": path.resolve("./src/utils"),
-      "@maps": path.resolve("./src/maps"),
-      "@styles": path.resolve("./src/styles"),
-      "@constants": path.resolve("./src/constants"),
       "@hooks": path.resolve("./src/hooks"),
+      "@maps": path.resolve("./src/maps"),
+      "@store": path.resolve("./src/store"),
+      "@styles": path.resolve("./src/styles"),
+      "@utils": path.resolve("./src/utils"),
     },
   },
 });
