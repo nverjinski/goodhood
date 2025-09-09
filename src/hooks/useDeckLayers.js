@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { ScatterplotLayer } from "@deck.gl/layers";
+import { useMemo, useState, useEffect } from "react";
+import { useSelector, shallowEqual } from "react-redux";
+import { ScatterplotLayer, IconLayer } from "@deck.gl/layers";
 import sourceData from "@datasets/gun_violence_2024.json";
 import { LAYER_NAMES } from "@constants/layers";
 import { useTheme } from "@contexts/ThemeContext";
@@ -18,14 +18,44 @@ const scatterplotColors = {
 
 export const useDeckLayers = (handleHover) => {
   const { theme } = useTheme();
-  const activeLayers = useSelector((state) =>
-    Object.keys(state.layer.layers).filter(
-      (layerName) => state.layer.layers[layerName].active
-    )
+  const [offenderData, setOffenderData] = useState([]);
+  const activeLayers = useSelector(
+    (state) =>
+      Object.keys(state.layer.layers).filter(
+        (layerName) => state.layer.layers[layerName].active
+      ),
+    shallowEqual
   );
+  const selectedLocation = useSelector(
+    (state) => state.location.selectedLocation
+  );
+
+  useEffect(() => {
+    const isOffenderLayerActive = activeLayers.includes(
+      LAYER_NAMES.OFFENDER_LAYER
+    );
+
+    if (isOffenderLayerActive && selectedLocation) {
+      fetch(`/api/offenders?input=${selectedLocation.place_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setOffenderData(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching offender data:", error);
+          setOffenderData([]);
+        });
+    } else {
+      setOffenderData([]);
+    }
+  }, [activeLayers, selectedLocation]);
 
   const layers = useMemo(() => {
     const selectedLayers = [];
+    const isOffenderLayerActive = activeLayers.includes(
+      LAYER_NAMES.OFFENDER_LAYER
+    );
+
     if (!Array.isArray(sourceData)) {
       return selectedLayers;
     }
@@ -55,8 +85,32 @@ export const useDeckLayers = (handleHover) => {
       );
     }
 
+    if (isOffenderLayerActive && offenderData.length) {
+      selectedLayers.push(
+        new IconLayer({
+          id: "offender-layer",
+          data: offenderData,
+
+          iconAtlas:
+            "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
+          iconMapping:
+            "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
+
+          getIcon: (d) => "marker-warning",
+          getPosition: (d) => [
+            d.locations[0].longitude,
+            d.locations[0].latitude,
+          ],
+          getSize: 30, // in pixels
+          getColor: (d) => [255, 0, 0], // Red
+          pickable: true,
+          // onClick: (info) => console.log('Clicked Pin:', info.object),
+        })
+      );
+    }
+
     return selectedLayers;
-  }, [activeLayers, handleHover, theme]);
+  }, [activeLayers, handleHover, theme, offenderData, sourceData]);
 
   return layers;
 };
