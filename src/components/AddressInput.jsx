@@ -6,7 +6,10 @@ import { TextField } from "@components/base";
 import styled from "styled-components";
 import mapUtils from "@utils/mapUtils";
 import { debounce } from "@utils/timingUtils";
-import { addLocationHistory, setSelectedLocation } from "../app/locationSlice";
+import {
+  addLocationHistory,
+  setSelectedLocation,
+} from "../store/locationSlice";
 
 const Container = styled.div`
   position: relative;

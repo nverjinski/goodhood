@@ -7,7 +7,7 @@ import mapUtils from "@utils/mapUtils";
 import {
   setSelectedLocation,
   removeLocationHistory,
-} from "../app/locationSlice";
+} from "../store/locationSlice";
 
 const StyledListContainer = styled.div`
   width: 100%;
