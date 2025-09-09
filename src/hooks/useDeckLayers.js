@@ -90,12 +90,10 @@ export const useDeckLayers = (handleHover) => {
         new IconLayer({
           id: "offender-layer",
           data: offenderData,
-
           iconAtlas:
             "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
           iconMapping:
             "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
-
           getIcon: (d) => "marker-warning",
           getPosition: (d) => [
             d.locations[0].longitude,
