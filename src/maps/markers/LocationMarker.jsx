@@ -2,7 +2,7 @@ import { memo, useState, useMemo } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { HomeIcon } from "@heroicons/react/24/solid";
-import { setSelectedLocation } from "../../store/locationSlice";
+import { setSelectedLocation } from "@store/locationSlice";
 
 const MarkerContainer = styled.div`
   position: absolute;

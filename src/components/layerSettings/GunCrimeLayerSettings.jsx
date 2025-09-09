@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import ToggleSwitch from "@components/base/ToggleSwitch";
 import { LAYER_NAMES } from "@constants/layers";
-import { toggleActiveLayer } from "../../store/layerSlice";
+import { toggleActiveLayer } from "@store/layerSlice";
 
 const GunCrimeLayerSettings = () => {
   const dispatch = useDispatch();
