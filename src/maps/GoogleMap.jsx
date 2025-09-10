@@ -8,6 +8,7 @@ import {
   DEFAULT_MAP_CENTER,
   DEFAULT_MAP_ZOOM,
 } from "@constants/googleMap";
+import HoverInfo from "@components/HoverInfo";
 import LocationMarker from "@maps/markers/LocationMarker";
 import DeckOverlay from "@maps/DeckOverlay";
 
@@ -85,29 +86,7 @@ const GoogleMap = () => {
         ))}
       </Map>
 
-      {hoverInfo && hoverInfo.object && (
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 1,
-            pointerEvents: "none",
-            left: hoverInfo.x,
-            top: hoverInfo.y,
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-            color: "#fff",
-            padding: "4px 8px",
-            borderRadius: "4px",
-            fontSize: "12px",
-            fontFamily: "sans-serif",
-            transform: "translate(10px, -10px)",
-          }}
-        >
-          <div>Date: {hoverInfo.object.date}</div>
-          <div>Killed: {hoverInfo.object.n_killed}</div>
-          <div>Injured: {hoverInfo.object.n_injured}</div>
-          <div>Notes: {hoverInfo.object.notes}</div>
-        </div>
-      )}
+      {hoverInfo && hoverInfo.object && <HoverInfo hoverInfo={hoverInfo} />}
     </div>
   );
 };

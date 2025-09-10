@@ -102,6 +102,7 @@ export const useDeckLayers = (handleHover) => {
           getSize: 30, // in pixels
           getColor: (d) => [255, 0, 0], // Red
           pickable: true,
+          onHover: handleHover,
           // onClick: (info) => console.log('Clicked Pin:', info.object),
         })
       );
