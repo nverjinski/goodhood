@@ -49,6 +49,12 @@ const OffenderContent = ({ data }) => {
   );
 };
 
+/**
+ * A component that renders info about a map rendered data point.
+ * Currently capable of displaying Gun Crime and Offender info
+ *
+ * @param {object} hoverInfo - Object containing info regarding the hovered data point
+ */
 const HoverInfo = React.memo(({ hoverInfo }) => {
   const { object, x, y } = hoverInfo || {};
 
