@@ -4,17 +4,19 @@ import SettingsButton from "./SettingsButton";
 import PlayButton from "./PlayButton";
 
 import AddressInput from "./AddressInput";
+import AuthenticationDialogContent from "./AuthenticationDialogContent";
 import LocationHistory from "./LocationHistory";
 import Toolbar from "./Toolbar";
 import Toolbox from "./Toolbox";
 
 export {
-  LoginButton,
-  ThemeToggle,
-  SettingsButton,
-  PlayButton,
   AddressInput,
+  AuthenticationDialogContent,
   LocationHistory,
+  LoginButton,
+  PlayButton,
+  SettingsButton,
+  ThemeToggle,
   Toolbar,
   Toolbox,
 };
