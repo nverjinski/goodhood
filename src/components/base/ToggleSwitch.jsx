@@ -13,7 +13,7 @@ const Label = styled.label`
   font-size: 1rem;
   color: ${({ theme, $disabled }) =>
     $disabled ? theme.heavy_line_outline : theme.primary_text};
-  cursor: pointer;
+  cursor: ${({ $disabled }) => !$disabled && "pointer"};
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -43,7 +43,7 @@ const SwitchTrack = styled.div`
       : theme.heavy_line_outline};
   border-radius: 9999px;
   transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
+  cursor: ${({ $disabled }) => !$disabled && "pointer"};
 `;
 
 const SwitchThumb = styled.div`
