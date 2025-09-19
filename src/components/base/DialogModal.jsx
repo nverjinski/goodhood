@@ -14,7 +14,8 @@ const ModalWrapper = styled.div`
   position: absolute;
   background: #ffffff;
   padding: 24px;
-  border-radius: 8px;
+  border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.heavy_line_outline};
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 
