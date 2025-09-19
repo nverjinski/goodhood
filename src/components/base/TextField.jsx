@@ -31,8 +31,8 @@ const StyledFieldSet = styled.fieldset`
   ${({ theme, $hasFocus }) =>
     $hasFocus &&
     css`
-      border-color: ${theme.accent};
-      border-width: 2px;
+      border-color: ${theme.primary_text};
+      border-width: 1.5px;
     `}
 `;
 
@@ -51,7 +51,7 @@ const StyledLabel = styled.label`
   ${({ theme, $hasFocus }) =>
     $hasFocus &&
     css`
-      color: ${theme.accent};
+      color: ${theme.primary_text};
     `}
   ${({ $hasValue, $hasFocus }) =>
     ($hasValue || $hasFocus) &&
