@@ -58,12 +58,21 @@ const SwitchThumb = styled.div`
  * @param {string} props.label - The text label to display next to the switch.
  * @param {boolean} props.checked - The current state of the switch (on/off).
  * @param {function} props.onChange - The function to call when the switch is toggled.
+ * @param {boolean} props.disabled - The value describing whether the switch is disabled.
  */
-const ToggleSwitch = ({ label, checked = false, onChange }) => {
+const ToggleSwitch = ({
+  label,
+  checked = false,
+  onChange,
+  disabled = false,
+}) => {
   return (
     <ToggleWrapper>
       <Label htmlFor={`toggle-switch-${label}`}>{label}</Label>
-      <SwitchTrack checked={checked} onClick={() => onChange(!checked)}>
+      <SwitchTrack
+        checked={checked}
+        onClick={() => !disabled && onChange(!checked)}
+      >
         <HiddenCheckbox
           id={`toggle-switch-${label}`}
           checked={checked}

@@ -38,7 +38,7 @@ function App() {
           </ExpansionPanel>
           <ExpansionPanel title="Layers" defaultOpen={false}>
             <GunCrimeLayerSettings />
-            <OffenderLayerSettings />
+            <OffenderLayerSettings disabled={true} />
           </ExpansionPanel>
         </Toolbox>
         <Toolbar>
