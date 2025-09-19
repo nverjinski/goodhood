@@ -11,7 +11,8 @@ const ToggleWrapper = styled.div`
 
 const Label = styled.label`
   font-size: 1rem;
-  color: ${({ theme }) => theme.primary_text};
+  color: ${({ theme, $disabled }) =>
+    $disabled ? theme.heavy_line_outline : theme.primary_text};
   cursor: pointer;
 `;
 
@@ -32,8 +33,14 @@ const SwitchTrack = styled.div`
   position: relative;
   width: 33px;
   height: 18px;
-  background-color: ${({ theme, checked }) =>
-    checked ? theme.heavy_success : theme.heavy_line_outline};
+  background-color: ${({ theme, checked, $disabled }) =>
+    checked
+      ? $disabled
+        ? theme.secondary_base
+        : theme.heavy_success
+      : $disabled
+      ? theme.secondary_base
+      : theme.heavy_line_outline};
   border-radius: 9999px;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
@@ -68,15 +75,18 @@ const ToggleSwitch = ({
 }) => {
   return (
     <ToggleWrapper>
-      <Label htmlFor={`toggle-switch-${label}`}>{label}</Label>
+      <Label htmlFor={`toggle-switch-${label}`} $disabled={disabled}>
+        {label}
+      </Label>
       <SwitchTrack
         checked={checked}
+        $disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
       >
         <HiddenCheckbox
           id={`toggle-switch-${label}`}
           checked={checked}
-          onChange={() => onChange(!checked)}
+          onChange={() => !disabled && onChange(!checked)}
         />
         <SwitchThumb checked={checked} />
       </SwitchTrack>
