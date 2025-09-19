@@ -38,20 +38,10 @@ const PlayButton = () => {
 
   const handleClick = () => {
     // Test map flyTo function and API call
-    /*
     if (map) {
       const newLocation = { lat: 40.7128, lng: -74.006 }; // Example: New York City
       mapUtils.flyTo(map, { center: newLocation, zoom: 17 });
     }
-    */
-
-    // Test offenders API call
-    const input = "TestInput";
-    fetch(`/api/offenders?input=${input}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("OFFENDERS DATA: ", data);
-      });
   };
 
   return (
