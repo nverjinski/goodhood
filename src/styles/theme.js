@@ -18,13 +18,13 @@ export const lightTheme = {
 
   // New Work In Progress Colors
   border: {
-    light: "#d9d9d9",
-    medium: "#999999",
+    light: "#bdbdbd",
+    medium: "#838383",
     heavy: "#000000",
   },
   text: {
-    disabled: "#d9d9d9",
-    secondary: "#999999",
+    disabled: "#bdbdbd",
+    secondary: "#838383",
     primary: "#000000",
   },
 };
@@ -49,12 +49,12 @@ export const darkTheme = {
   // New Work In Progress Colors
   border: {
     light: "#5e5e5e",
-    medium: "#939292ff",
+    medium: "#9f9f9f",
     heavy: "#ddddddff",
   },
   text: {
     disabled: "#5e5e5e",
-    secondary: "#939292ff",
+    secondary: "#9f9f9f",
     primary: "#ddddddff",
   },
 };
