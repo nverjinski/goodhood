@@ -12,7 +12,7 @@ const ToggleWrapper = styled.div`
 const Label = styled.label`
   font-size: 1rem;
   color: ${({ theme, $disabled }) =>
-    $disabled ? theme.heavy_line_outline : theme.primary_text};
+    $disabled ? theme.text.disabled : theme.text.primary};
   cursor: ${({ $disabled }) => !$disabled && "pointer"};
 `;
 
@@ -40,7 +40,7 @@ const SwitchTrack = styled.div`
         : theme.heavy_success
       : $disabled
       ? theme.secondary_base
-      : theme.heavy_line_outline};
+      : theme.border.medium};
   border-radius: 9999px;
   transition: background-color 0.2s ease-in-out;
   cursor: ${({ $disabled }) => !$disabled && "pointer"};
@@ -88,7 +88,7 @@ const ToggleSwitch = ({
           checked={checked}
           onChange={() => !disabled && onChange(!checked)}
         />
-        <SwitchThumb checked={checked} />
+        <SwitchThumb checked={checked} $disabled={disabled} />
       </SwitchTrack>
     </ToggleWrapper>
   );
