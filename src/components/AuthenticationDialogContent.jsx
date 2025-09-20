@@ -65,7 +65,7 @@ const AuthenticationDialogContent = () => {
       <TextField id="email" label="Email" />
 
       <InputGroup>
-        <TextField id="password" label="Password" />
+        <TextField id="password" type="password" label="Password" />
         <ForgotPasswordLink href="#">Forgot Password?</ForgotPasswordLink>
       </InputGroup>
 
