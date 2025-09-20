@@ -49,12 +49,12 @@ export const darkTheme = {
   // New Work In Progress Colors
   border: {
     light: "#5e5e5e",
-    medium: "#777777",
+    medium: "#939292ff",
     heavy: "#ddddddff",
   },
   text: {
     disabled: "#5e5e5e",
-    secondary: "#777777",
+    secondary: "#939292ff",
     primary: "#ddddddff",
   },
 };
