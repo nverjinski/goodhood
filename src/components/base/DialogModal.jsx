@@ -1,4 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+
+// Keyframes describing the modal's movement from offscreen to the screen's center
+const slideInFromOffscreen = keyframes`
+  from {
+    transform: translate(-50%, -100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+`;
 
 const Overlay = styled.div`
   position: fixed;
@@ -26,10 +38,19 @@ const ModalWrapper = styled.div`
   right: ${({ anchor }) => anchor.right};
   bottom: ${({ anchor }) => anchor.bottom};
 
+  /* Set the default, final transform for non-animated modals */
   transform: ${({ anchor }) =>
     anchor.top === "50%" && anchor.left === "50%"
       ? "translate(-50%, -50%)"
       : "none"};
+
+  /* If animating, apply the keyframes */
+  ${({ $animate }) =>
+    $animate &&
+    css`
+      animation: ${slideInFromOffscreen} 0.5s cubic-bezier(0.25, 1, 0.5, 1)
+        forwards;
+    `}
 `;
 
 const DialogModal = ({
@@ -39,6 +60,7 @@ const DialogModal = ({
   height = "auto",
   anchor = { top: "50%", left: "50%" },
   children,
+  animate = false,
 }) => {
   if (!isOpen) {
     return null;
@@ -55,6 +77,7 @@ const DialogModal = ({
         height={height}
         anchor={anchor}
         onClick={handleContentClick}
+        $animate={animate}
       >
         {children}
       </ModalWrapper>
