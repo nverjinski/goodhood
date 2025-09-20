@@ -24,10 +24,10 @@ const Overlay = styled.div`
 
 const ModalWrapper = styled.div`
   position: absolute;
-  background: ${({ theme }) => theme.primary_base};
+  background-color: ${({ theme }) => theme.primary_base};
   padding: 24px;
   border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.heavy_line_outline};
+  border: 1px solid ${({ theme }) => theme.border.light};
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 
