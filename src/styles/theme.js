@@ -15,6 +15,18 @@ export const lightTheme = {
   success: "#00825D",
   heavy_success: "#11B484",
   caution: "#866B00",
+
+  // New Work In Progress Colors
+  border: {
+    light: "#d9d9d9",
+    medium: "#999999",
+    heavy: "#000000",
+  },
+  text: {
+    disabled: "#d9d9d9",
+    secondary: "#999999",
+    primary: "#000000",
+  },
 };
 
 export const darkTheme = {
@@ -33,4 +45,16 @@ export const darkTheme = {
   heavy_danger: "#e46e6e",
   success: "#30e0ac",
   heavy_success: "#11b484",
+
+  // New Work In Progress Colors
+  border: {
+    light: "#5e5e5e",
+    medium: "#777777",
+    heavy: "#ddddddff",
+  },
+  text: {
+    disabled: "#5e5e5e",
+    secondary: "#777777",
+    primary: "#ddddddff",
+  },
 };
