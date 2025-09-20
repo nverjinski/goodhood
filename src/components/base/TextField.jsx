@@ -20,20 +20,20 @@ const StyledFieldSet = styled.fieldset`
   bottom: 0;
   margin: 0;
   padding: 0 7px;
-  border: 1px solid ${({ theme }) => theme.light_line_divider};
+  border: 1px solid ${({ theme }) => theme.border.medium};
   border-radius: 4px;
   pointer-events: none;
 
   ${({ theme, $hasHovered }) =>
     $hasHovered &&
     css`
-      border-color: ${theme.primary_text};
+      border-color: ${theme.border.heavy};
     `}
 
   ${({ theme, $hasFocus }) =>
     $hasFocus &&
     css`
-      border-color: ${theme.primary_text};
+      border-color: ${theme.border.heavy};
       border-width: 1.5px;
     `}
 `;
@@ -45,7 +45,7 @@ const StyledLabel = styled.label`
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
-  color: ${({ theme }) => theme.secondary_text};
+  color: ${({ theme }) => theme.text.secondary};
   pointer-events: none;
   transition: all 0.15s ease-in-out;
   transform-origin: left top;
@@ -53,7 +53,7 @@ const StyledLabel = styled.label`
   ${({ theme, $hasFocus }) =>
     $hasFocus &&
     css`
-      color: ${theme.primary_text};
+      color: ${theme.text.primary};
     `}
   ${({ $hasValue, $hasFocus }) =>
     ($hasValue || $hasFocus) &&
@@ -99,10 +99,10 @@ const PasswordToggleButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: ${({ theme }) => theme.secondary_text};
+  color: ${({ theme }) => theme.text.primary};
 
   &:focus {
-    outline: none; // Or a custom focus style
+    outline: none;
   }
 `;
 
