@@ -4,10 +4,12 @@ import { ChevronUpIcon } from "@heroicons/react/24/solid";
 
 const PanelWrapper = styled.div`
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.light_line_divider};
+  border: 1px solid
+    ${({ theme, $disabled }) =>
+      $disabled ? theme.border.light : theme.border.medium};
   border-radius: 4px;
   &:hover {
-    border-color: ${({ theme, $disabled }) => !$disabled && theme.primary_text};
+    border-color: ${({ theme, $disabled }) => !$disabled && theme.border.heavy};
   }
 `;
 
@@ -23,7 +25,7 @@ const PanelHeader = styled.div`
 
 const PanelTitle = styled.span`
   color: ${({ theme, $disabled }) =>
-    $disabled ? theme.heavy_line_outline : theme.secondary_text};
+    $disabled ? theme.text.disabled : theme.text.secondary};
 `;
 
 const AnimatedChevron = styled(ChevronUpIcon)`
@@ -32,10 +34,10 @@ const AnimatedChevron = styled(ChevronUpIcon)`
   transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0)")};
   transition: transform 0.2s ease-in-out;
   color: ${({ theme, $disabled }) =>
-    $disabled ? theme.light_line_divider : theme.secondary_text};
+    $disabled ? theme.text.disabled : theme.text.secondary};
 
   &:hover {
-    color: ${({ theme, $disabled }) => !$disabled && theme.primary_text};
+    color: ${({ theme, $disabled }) => !$disabled && theme.text.secondary};
   }
 `;
 
