@@ -24,7 +24,7 @@ const Overlay = styled.div`
 
 const ModalWrapper = styled.div`
   position: absolute;
-  background: #ffffff;
+  background: ${({ theme }) => theme.primary_base};
   padding: 24px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.heavy_line_outline};
