@@ -33,11 +33,11 @@ const StyledInput = styled.input`
  * @returns {JSX.Element} The rendered InputBase component.
  */
 const InputBase = React.forwardRef(
-  ({ id, value, onFocus, onBlur, onChange }, ref) => {
+  ({ id, type, value, onFocus, onBlur, onChange }, ref) => {
     return (
       <StyledInput
         id={id}
-        type="text"
+        type={type}
         value={value}
         onChange={onChange}
         onFocus={onFocus}

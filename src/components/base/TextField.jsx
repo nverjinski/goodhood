@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+
 import InputBase from "./InputBase";
 
 // Main container for the input and label
@@ -83,11 +85,33 @@ const StyledLegend = styled.legend`
     `}
 `;
 
+const PasswordToggleButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: ${({ theme }) => theme.secondary_text};
+
+  &:focus {
+    outline: none; // Or a custom focus style
+  }
+`;
+
 /**
  * A custom TextField component that mimics the appearance of a Material-UI TextField.
  * @param {object} props - The component props.
- * @param {string} props.label - The label for the text field.
  * @param {string} props.id - A unique ID to link the label and the input for accessibility.
+ * @param {string} props.type - Type of input. Options are 'text' or 'password'. Defaults to 'text'.
+ * @param {string} props.label - The label for the text field.
  * @param {string} [props.value] - The controlled value of the input. Defaults to an empty string.
  * @param {(value: string) => void} [props.onChange] - A callback function that fires when the input value changes.
  * @returns {JSX.Element} The rendered TextInput component.
@@ -95,8 +119,9 @@ const StyledLegend = styled.legend`
 const TextField = React.forwardRef(
   (
     {
-      label,
       id,
+      type = "text",
+      label,
       value: propsValue = "",
       onChange = () => {},
       onFocusChange = () => {},
@@ -106,10 +131,14 @@ const TextField = React.forwardRef(
     const [value, setValue] = useState(propsValue);
     const [isFocused, setIsFocused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const hasFocus = isFocused;
     const hasHovered = isHovered;
     const hasValue = value !== "";
+
+    const inputType =
+      type === "password" ? (showPassword ? "text" : "password") : type;
 
     useEffect(() => {
       if (propsValue !== value) {
@@ -128,6 +157,10 @@ const TextField = React.forwardRef(
       onChange(e.target.value);
     };
 
+    const togglePasswordVisibility = () => {
+      setShowPassword((prev) => !prev);
+    };
+
     return (
       <StyledInputWrapper
         onMouseEnter={() => setIsHovered(true)}
@@ -138,12 +171,22 @@ const TextField = React.forwardRef(
         </StyledLabel>
         <InputBase
           id={id}
+          type={inputType}
           value={value}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
           ref={ref}
         />
+        {type === "password" && (
+          <PasswordToggleButton
+            type="button"
+            onClick={togglePasswordVisibility}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+          </PasswordToggleButton>
+        )}
         <StyledFieldSet
           aria-hidden="true"
           $hasFocus={hasFocus}
