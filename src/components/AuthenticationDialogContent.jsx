@@ -15,7 +15,7 @@ const Title = styled.h2`
   margin: 0 0 10px 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  color: ${({ theme }) => theme.primary_text};
+  color: ${({ theme }) => theme.text.primary};
   text-align: center;
   font-weight: 600;
 `;
@@ -33,22 +33,22 @@ const Button = styled.button`
   cursor: pointer;
   border: none;
   border-radius: 6px;
-  background-color: ${({ theme }) => theme.success};
+  background-color: ${({ theme }) => theme.accent.heavy};
   color: white;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.heavy_success};
+    background-color: ${({ theme }) => theme.accent.light};
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.heavy_success};
+    background-color: ${({ theme }) => theme.accent.light};
   }
 `;
 
 const ForgotPasswordLink = styled.a`
   font-size: 14px;
-  color: ${({ theme }) => theme.primary_text};
+  color: ${({ theme }) => theme.text.secondary};
   text-decoration: none;
   text-align: right;
   cursor: pointer;
@@ -57,6 +57,7 @@ const ForgotPasswordLink = styled.a`
 
   &:hover {
     text-decoration: underline;
+    color: ${({ theme }) => theme.text.primary};
   }
 `;
 

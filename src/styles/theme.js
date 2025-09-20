@@ -6,7 +6,6 @@ export const lightTheme = {
   secondary_text: "#5f5f5f",
   heavy_line_outline: "#878787",
   light_line_divider: "#d9d9d9",
-  accent: "#1660c7",
   light_warning: "#fdf9d2",
   light_warning_text: "#636363",
   heavy_warning: "#BB5206",
@@ -27,6 +26,10 @@ export const lightTheme = {
     secondary: "#838383",
     primary: "#000000",
   },
+  accent: {
+    heavy: "#00825D",
+    light: "#11B484",
+  },
 };
 
 export const darkTheme = {
@@ -37,7 +40,6 @@ export const darkTheme = {
   secondary_text: "#b0b0b0",
   heavy_line_outline: "#696969",
   light_line_divider: "#d9d9d9",
-  accent: "#1660c7",
   light_warning: "#fdf9d2",
   light_warning_text: "#051e37",
   heavy_warning: "#ffe8cb",
@@ -56,5 +58,9 @@ export const darkTheme = {
     disabled: "#5e5e5e",
     secondary: "#9f9f9f",
     primary: "#ddddddff",
+  },
+  accent: {
+    heavy: "#00825D",
+    light: "#11B484",
   },
 };
