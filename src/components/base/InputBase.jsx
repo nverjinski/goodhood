@@ -9,7 +9,7 @@ const StyledInput = styled.input`
   border: none;
   border-radius: 6px;
   font-size: 16px;
-  color: ${({ theme }) => theme.primary_text};
+  color: ${({ theme }) => theme.text.primary};
   box-sizing: border-box;
   background-color: transparent;
   bottom: 0;
