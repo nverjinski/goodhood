@@ -178,7 +178,7 @@ const TextField = React.forwardRef(
           onChange={handleChange}
           ref={ref}
         />
-        {type === "password" && (
+        {type === "password" && value && (
           <PasswordToggleButton
             type="button"
             onClick={togglePasswordVisibility}
