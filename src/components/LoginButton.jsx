@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { toggleModalOpen } from "@store/appSlice";
+import { MODALS } from "@constants/app";
 import { UserIcon } from "@heroicons/react/24/solid";
 
 const StyledButton = styled.button`
@@ -37,7 +38,7 @@ const LoginButton = () => {
   const dispatch = useDispatch();
   return (
     <StyledButton
-      onClick={() => dispatch(toggleModalOpen("loginModal"))}
+      onClick={() => dispatch(toggleModalOpen(MODALS.LOGIN_MODAL))}
       aria-label="Login Button"
     >
       <IconWrapper>

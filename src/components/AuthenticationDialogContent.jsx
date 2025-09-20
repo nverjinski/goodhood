@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { toggleModalOpen } from "@store/appSlice";
+import { MODALS } from "@constants/app";
 import { TextField } from "@components/base";
 
 const AuthContainer = styled.div`
@@ -72,7 +73,7 @@ const AuthenticationDialogContent = () => {
         <ForgotPasswordLink href="#">Forgot Password?</ForgotPasswordLink>
       </InputGroup>
 
-      <Button onClick={() => dispatch(toggleModalOpen("loginModal"))}>
+      <Button onClick={() => dispatch(toggleModalOpen(MODALS.LOGIN_MODAL))}>
         Sign In
       </Button>
     </AuthContainer>

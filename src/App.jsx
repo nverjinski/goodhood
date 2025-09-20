@@ -4,6 +4,7 @@ import { ThemeProvider } from "@contexts/ThemeContext";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { toggleModalOpen } from "@store/appSlice";
 import { DialogModal, ExpansionPanel } from "./components/base";
+import { MODALS } from "@constants/app";
 import {
   GunCrimeLayerSettings,
   OffenderLayerSettings,
@@ -54,7 +55,7 @@ function App() {
         <DialogModal
           isOpen={loginModalOpen}
           width="400px"
-          onClose={() => dispatch(toggleModalOpen("loginModal"))}
+          onClose={() => dispatch(toggleModalOpen(MODALS.LOGIN_MODAL))}
           animate={true}
         >
           <AuthenticationDialogContent />
