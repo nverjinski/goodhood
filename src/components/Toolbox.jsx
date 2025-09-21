@@ -36,6 +36,10 @@ const StyledToolbox = styled.div`
     `}
 `;
 
+const StyledLogoContainer = styled.div`
+  margin-bottom: 5px;
+`;
+
 /**
  * A flexible toolbar component for housing various action buttons.
  *
@@ -51,7 +55,9 @@ const Toolbox = ({ children }) => {
   );
   return (
     <StyledToolbox $isExpanded={isExpanded}>
-      <Logo onClick={handleClick} />
+      <StyledLogoContainer>
+        <Logo onClick={handleClick} />
+      </StyledLogoContainer>
       {children}
     </StyledToolbox>
   );
