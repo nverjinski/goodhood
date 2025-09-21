@@ -10,9 +10,9 @@ const Logo = styled.div`
   user-select: none;
 `;
 
-const AppLogo = () => {
+const AppLogo = ({ onClick = () => {} }) => {
   const logoText = `GoodHood`;
-  return <Logo>{logoText}</Logo>;
+  return <Logo onClick={onClick}>{logoText}</Logo>;
 };
 
 export default AppLogo;

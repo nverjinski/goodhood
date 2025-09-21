@@ -4,6 +4,9 @@ const initialState = {
   modals: {
     loginModal: false,
   },
+  toolbox: {
+    expanded: true,
+  },
 };
 
 export const appSlice = createSlice({
@@ -16,9 +19,13 @@ export const appSlice = createSlice({
         state.modals[modalName] = !state.modals[modalName];
       }
     },
+    toggleToolboxExpanded: (state) => {
+      console.log("hit");
+      state.toolbox.expanded = !state.toolbox.expanded;
+    },
   },
 });
 
-export const { toggleModalOpen } = appSlice.actions;
+export const { toggleModalOpen, toggleToolboxExpanded } = appSlice.actions;
 
 export default appSlice.reducer;
