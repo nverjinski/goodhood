@@ -10,15 +10,16 @@ import {
   OffenderLayerSettings,
 } from "@components/layerSettings";
 import {
+  AddressInput,
   AuthenticationDialogContent,
+  LocationHistory,
+  LoginButton,
+  Logo,
+  PlayButton,
+  ThemeToggle,
   Toolbar,
   Toolbox,
-  AddressInput,
-  LocationHistory,
-  ThemeToggle,
   SettingsButton,
-  LoginButton,
-  PlayButton,
 } from "@components";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
     <ThemeProvider>
       <APIProvider apiKey={apiKey}>
         <Toolbox>
+          <Logo />
           <AddressInput />
           <ExpansionPanel title="Location History" disabled={!hasHistory}>
             <LocationHistory />

@@ -6,6 +6,7 @@ import PlayButton from "./PlayButton";
 import AddressInput from "./AddressInput";
 import AuthenticationDialogContent from "./AuthenticationDialogContent";
 import LocationHistory from "./LocationHistory";
+import Logo from "./AppLogo";
 import Toolbar from "./Toolbar";
 import Toolbox from "./Toolbox";
 
@@ -14,6 +15,7 @@ export {
   AuthenticationDialogContent,
   LocationHistory,
   LoginButton,
+  Logo,
   PlayButton,
   SettingsButton,
   ThemeToggle,
