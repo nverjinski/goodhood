@@ -6,13 +6,40 @@ const Logo = styled.div`
   font-size: 32px;
   font-style: normal;
   color: ${({ theme }) => theme.text.primary};
-  cursor: pointer;
+  cursor: ${({ "aria-role": ariaRole }) =>
+    ariaRole === "button" ? "pointer" : "default"};
   user-select: none;
 `;
 
-const AppLogo = ({ onClick = () => {} }) => {
+const NOOP = () => {};
+
+const AppLogo = ({ onClick = NOOP }) => {
   const logoText = `GoodHood`;
-  return <Logo onClick={onClick}>{logoText}</Logo>;
+
+  const isInteractive = onClick !== NOOP;
+
+  const handleKeyDown = (event) => {
+    if (!isInteractive) return;
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
+  const accessibilityProps = isInteractive
+    ? {
+        "aria-role": "button",
+        tabIndex: 0,
+        onClick: onClick,
+        onKeyDown: handleKeyDown,
+      }
+    : {
+        "aria-role": "img",
+        "aria-label": "GoodHood Logo",
+      };
+
+  return <Logo {...accessibilityProps}>{logoText}</Logo>;
 };
 
 export default AppLogo;
