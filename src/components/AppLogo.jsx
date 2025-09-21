@@ -6,6 +6,8 @@ const Logo = styled.div`
   font-size: 32px;
   font-style: normal;
   color: ${({ theme }) => theme.text.primary};
+  cursor: pointer;
+  user-select: none;
 `;
 
 const AppLogo = () => {

@@ -14,7 +14,6 @@ import {
   AuthenticationDialogContent,
   LocationHistory,
   LoginButton,
-  Logo,
   PlayButton,
   ThemeToggle,
   Toolbar,
@@ -38,7 +37,6 @@ function App() {
     <ThemeProvider>
       <APIProvider apiKey={apiKey}>
         <Toolbox>
-          <Logo />
           <AddressInput />
           <ExpansionPanel title="Location History" disabled={!hasHistory}>
             <LocationHistory />

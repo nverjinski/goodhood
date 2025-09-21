@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { Logo } from "@components";
 
 const StyledToolbox = styled.div`
   position: absolute;
   width: 400px;
   z-index: 1;
-  top: 4rem;
+  top: 2rem;
   left: 2rem;
   display: flex;
   flex-direction: column;
@@ -32,7 +33,12 @@ const StyledToolbox = styled.div`
  * @param {React.ReactNode} props.children - The child elements.
  */
 const Toolbox = ({ children }) => {
-  return <StyledToolbox>{children}</StyledToolbox>;
+  return (
+    <StyledToolbox>
+      <Logo />
+      {children}
+    </StyledToolbox>
+  );
 };
 
 export default Toolbox;
