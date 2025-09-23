@@ -1,4 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useLayoutEffect,
+} from "react";
+import { createPortal } from "react-dom";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useDispatch } from "react-redux";
 import { MapPinIcon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -15,9 +22,6 @@ const Container = styled.div`
 
 const StyledList = styled.ul`
   position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
   background-color: ${({ theme }) => theme.primary_base};
   list-style: none;
   padding: 0;
@@ -25,7 +29,7 @@ const StyledList = styled.ul`
   border: 1px solid ${({ theme }) => theme.heavy_line_outline};
   border-radius: 4px;
   transition: background-color 0.3s ease-in-out;
-  z-index: 10;
+  z-index: 1000;
 `;
 
 const ListItemWrapper = styled.li`
@@ -117,10 +121,14 @@ const AddressInput = () => {
   const [options, setOptions] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState(null);
+  const containerRef = useRef(null);
   const searchAddressRef = useRef(null);
   const searchBlockRef = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
+
+  const showDropdown = isInputFocused && (isLoading || options.length > 0);
 
   const fetchPredictions = useCallback(
     debounce((input) => {
@@ -170,6 +178,17 @@ const AddressInput = () => {
     }
     fetchPredictions(value);
   }, [value, fetchPredictions]);
+
+  useLayoutEffect(() => {
+    if (showDropdown && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX,
+        width: rect.width,
+      });
+    }
+  }, [showDropdown]);
 
   const handleOptionClick = useCallback(
     (event) => {
@@ -228,10 +247,8 @@ const AddressInput = () => {
     );
   };
 
-  const showDropdown = isInputFocused && (isLoading || options.length > 0);
-
   return (
-    <Container>
+    <Container ref={containerRef}>
       <TextField
         label="Search Address"
         id="address-input"
@@ -240,17 +257,22 @@ const AddressInput = () => {
         onFocusChange={setIsInputFocused}
         ref={searchAddressRef}
       />
-      {showDropdown && (
-        <StyledList onMouseDown={(e) => e.preventDefault()}>
-          {isLoading ? (
-            <LoadingSpinnerWrapper>
-              <Spinner />
-            </LoadingSpinnerWrapper>
-          ) : (
-            options.map((option) => renderOption(option))
-          )}
-        </StyledList>
-      )}
+      {showDropdown &&
+        createPortal(
+          <StyledList
+            onMouseDown={(e) => e.preventDefault()}
+            style={dropdownPosition}
+          >
+            {isLoading ? (
+              <LoadingSpinnerWrapper>
+                <Spinner />
+              </LoadingSpinnerWrapper>
+            ) : (
+              options.map((option) => renderOption(option))
+            )}
+          </StyledList>,
+          document.body
+        )}
       {isInputFocused && value && (
         <StyledIconButton
           onClick={handleClearClick}

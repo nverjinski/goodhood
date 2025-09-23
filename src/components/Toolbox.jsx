@@ -25,7 +25,8 @@ const StyledToolbox = styled.div`
 
   background-color: ${({ theme }) => `${theme.primary_base}C0`};
 
-  &:hover {
+  &:hover,
+  &:focus-within {
     background-color: ${({ theme }) => theme.primary_base};
   }
 
