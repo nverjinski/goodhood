@@ -20,7 +20,6 @@ export const appSlice = createSlice({
       }
     },
     toggleToolboxExpanded: (state) => {
-      console.log("hit");
       state.toolbox.expanded = !state.toolbox.expanded;
     },
   },
