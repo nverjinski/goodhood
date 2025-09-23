@@ -1,12 +1,12 @@
 # GoodHood 🏡
 
-GoodHood is a web application designed to give users, especially potential home buyers, a better understanding of neighborhood safety. Our goal is to empower you with the data you need to make informed decisions about where you choose to live.
+GoodHood is a web application designed to give users, especially potential home buyers, a better understanding of neighborhood safety, home value and desireability, as well as data driven housing market insights. Our goal is to empower you with the data you need to make informed decisions about where you choose to live.
 
 ---
 
 ## About The Project
 
-Finding the right home is more than just the house itself—it's about the community and the environment. GoodHood aggregates and visualizes publicly available safety data on an interactive map, giving you a clear and intuitive overview of any neighborhood you're interested in.
+Finding the right home is more than just the house itself—it's about the community and the environment. GoodHood aggregates and visualizes publicly available data on an interactive map, giving you a clear and intuitive overview of any neighborhood you're interested in.
 
 ---
 
