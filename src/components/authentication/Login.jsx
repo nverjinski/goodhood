@@ -61,7 +61,7 @@ const ForgotPasswordLink = styled.a`
   }
 `;
 
-const AuthenticationDialogContent = () => {
+const Login = () => {
   const dispatch = useDispatch();
   return (
     <AuthContainer>
@@ -81,4 +81,4 @@ const AuthenticationDialogContent = () => {
   );
 };
 
-export default AuthenticationDialogContent;
+export default Login;

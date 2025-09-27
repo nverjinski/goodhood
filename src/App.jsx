@@ -11,7 +11,7 @@ import {
 } from "@components/layerSettings";
 import {
   AddressInput,
-  AuthenticationDialogContent,
+  Login,
   LocationHistory,
   LoginButton,
   PlayButton,
@@ -58,7 +58,7 @@ function App() {
           onClose={() => dispatch(toggleModalOpen(MODALS.LOGIN_MODAL))}
           animate={true}
         >
-          <AuthenticationDialogContent />
+          <Login />
         </DialogModal>
         <GoogleMap />
       </APIProvider>
